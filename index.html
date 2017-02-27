@@ -9,32 +9,90 @@
     <title>TRI demo</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
-    <style>
-     /* Always set the map height explicitly to define the size of the div
-      * element that contains the map. */
-     #map {
-         height: 100%;
-     }
-     /* Optional: Makes the sample page fill the window. */
-     html, body {
-         height: 100%;
-         margin: 0;
-         padding: 0;
-     }
-    </style>
     <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/my.css">
   </head>
   <body>
-    <h1>This is TRI porject demo!</h1>
-    <div id="map"></div>
+
+    <!-- Navbar (sit on top) -->
+    <div class="w3-top">
+      <div class="w3-bar w3-white w3-wide w3-padding-8 w3-card-2">
+        <a href="#home" class="w3-margin-left w3-bar-item w3-button">
+          <b>TRI</b> Demo
+        </a>
+        <!-- Float links to the right. Hide them on small screens -->
+        <div class="w3-right w3-hide-small">
+          <a href="#projects" class="w3-bar-item w3-button">Projects</a>
+          <a href="#about" class="w3-bar-item w3-button">About</a>
+          <a href="#contact" class="w3-bar-item w3-button w3-margin-right">Contact</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header class="w3-display-container w3-content w3-wide"
+            style="max-width:1500px;" id="home">
+      <img class="w3-image" src="./img/architect.jpg" alt="Architecture"
+           width="1500" height="800">
+      <div class="w3-display-middle w3-margin-top w3-center">
+        <h1 class="w3-xxlarge w3-text-white">
+          <span class="w3-padding w3-black w3-opacity-min"><b>TRI</b></span>
+          <span class="w3-hide-small w3-text-light-grey">Demo</span>
+        </h1>
+      </div>
+    </header>
+
+    <!-- Page content -->
+    <div class="w3-content w3-padding" style="max-width:1564px">
+
+      <!-- Project Section -->
+      <div class="w3-container w3-padding-32" id="projects">
+        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-12">Projects</h3>
+      </div>
+
+      <!-- Google Map -->
+      <div id="googleMap" style="width:80%;height:450px;margin:auto"></div>
+
+      <!-- About Section -->
+      <div class="w3-container w3-padding-32" id="about">
+        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-12">About</h3>
+        <p>TRI project introductions and members description.</p>
+      </div>
+
+      <!-- Contact Section -->
+      <div class="w3-container w3-padding-32" id="contact">
+        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-12">Contact</h3>
+        <p>Lets get in touch and talk about your and our project.</p>
+        <form action="/action_page.php" target="_blank">
+          <input class="w3-input" type="text" placeholder="Name" required name="Name">
+          <input class="w3-input w3-section" type="text" placeholder="Email" required name="Email">
+          <input class="w3-input w3-section" type="text" placeholder="Subject" required name="Subject">
+          <input class="w3-input w3-section" type="text" placeholder="Comment" required name="Comment">
+          <button class="w3-btn w3-section" type="submit">
+            <i class="fa fa-paper-plane"></i> SEND MESSAGE
+          </button>
+        </form>
+      </div>
+      
+      <!-- End page content -->
+    </div>
+
     <script>
      function initMap() {
          // Create a map object and specify the DOM element for display.
-         var map = new google.maps.Map(document.getElementById('map'), {
-             center: {lat: 42.331429, lng: -83.045753},
-             scrollwheel: false,
-             zoom: 8
+         myCenter=new google.maps.LatLng(41.878114, -87.629798);
+         var mapOptions= {
+             center:myCenter,
+             zoom:12, scrollwheel: false, draggable: false,
+             mapTypeId:google.maps.MapTypeId.ROADMAP
+         };
+
+         var map=new google.maps.Map(document.getElementById("googleMap"),mapOptions);
+
+         var marker = new google.maps.Marker({
+             position: myCenter,
          });
+         marker.setMap(map);
      }
 
     </script>
