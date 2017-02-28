@@ -1,0 +1,7 @@
+#
+node_modules/*
+app/video/*
+
+.DS_Store
+
+*.swp
