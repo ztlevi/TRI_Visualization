@@ -1,0 +1,16 @@
+{
+  "name": "TRI_demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./app/tri_demo.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^1.4.15"
+  }
+}
