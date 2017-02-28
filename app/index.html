@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="./css/tri.css">
+</head>
+
+<body>
+  <section>
+    <h3>Video Player</h3>
+    <div>
+      <!-- The video will appear here -->
+      <video src="./video/8PF6005T.mp4" controls width="720" height="480" id="video-player">
+        You browser does not support the video element, please try ...
+      </video>
+    </div>
+    <nav>
+      <h2>Playlist</h2>
+      <ul>
+        <!-- The video playllist will appear here -->
+      </ul>
+    </nav>
+  </section>
+  <h3>My Google Maps Demo</h3>
+  <div id="map"></div>
+  <script>
+    require('./renderer')
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKewL3hAp5w0t6sSNgUuEZr4WXGF_CdgE">
+  </script>
+</body>
+
+</html>
