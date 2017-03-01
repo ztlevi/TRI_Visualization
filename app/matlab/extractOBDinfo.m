@@ -1,4 +1,6 @@
 function OBD = extractOBDinfo(OBD_filepath)
+
+    [~, file_name, ~] = fileparts(OBD_filepath);
     fid = fopen(OBD_filepath);
     OBD.dataRate = 100;
     [OBD.startDate, OBD.startTime] = getOBDstartDateTime(fid);
@@ -20,7 +22,7 @@ function OBD = extractOBDinfo(OBD_filepath)
     OBD.endTime = addtodate(OBD.endTime, numMilliseconds, 'millisecond');
     OBD.endTime = datestr(OBD.endTime, 'HH:MM:SS.FFF');
     
-    save('./output/OBD.mat', 'OBD');
+    save(['./output/' file_name '.mat'], 'OBD');
     
-    generateJsonData(OBD.data);
+    % generateJsonData(OBD.data);
 end

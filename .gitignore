@@ -4,6 +4,8 @@ app/video/*
 app/matlab/output/*
 app/matlab/data/*
 
+app/data/*
+
 .DS_Store
 
 *.swp
