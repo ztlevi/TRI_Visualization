@@ -1,7 +1,11 @@
 #
 node_modules/*
 app/video/*
-video/
+app/matlab/output/*
+
+app/data/*
+
 .DS_Store
 
+video/
 *.swp

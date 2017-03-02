@@ -1,12 +1,21 @@
 const {
-    ipcRenderer
+  ipcRenderer,
+  remote
 } = require('electron')
 
+mainProcess = remote.require('./tri_demo')
+
 // Cache DOM elements
+const videoLoadButton = document.querySelector('#load-video')
+const videoPlayButton = document.querySelector('#play-video')
+const videoPauseButton = document.querySelector('#pause-video')
+
 const mapDisplay = document.querySelector('#map')
 const videoPlayer = document.querySelector('#video-player')
 
 let map
+
+let driverMarker
 
 // initialize the Google Map
 const initMap = (lati, longi) => {
@@ -15,16 +24,25 @@ const initMap = (lati, longi) => {
     center: new google.maps.LatLng(lati, longi),
     mapTypeId: 'roadmap'
   })
+
+  driverMarker = new google.maps.Marker({
+    position: new google.maps.LatLng(lati, longi),
+    title: "driver's current location"
+  })
 }
 
 // update the GPS point
-const updateGPSplot = (map, lati, longi) => {
-  let driverLatLng = new google.maps.LatLng(lati, longi)
-  let marker = new google.maps.Marker({
+const updateGPSplot = (map, currentLat, currentLng) => {
+
+  driverMarker.setMap(null) 
+
+  let driverLatLng = new google.maps.LatLng(currentLat, currentLng)
+
+  driverMarker = new google.maps.Marker({
     position: driverLatLng,
     title: "driver's current location"
   })
-  marker.setMap(map)
+  driverMarker.setMap(map)
 
   // draw a new line from previous GPS location to the current place
 }
@@ -63,16 +81,25 @@ ipcRenderer.on('init', (event) => {
 })
 
 // Listen to the update-gps signal
-ipcRenderer.on('update-gps', (event, lati, longi) => {
-    updateGPSplot(map, lati, longi)
+ipcRenderer.on('update-gps', (event, currentLat, currentLng) => {
+  console.log("event: update-gps")
+  updateGPSplot(map, currentLat, currentLng)
 })
 
 // Listen to the update-link signal
 ipcRenderer.on('update-link', (event, shape_points) => {
+  console.log("event: update-link")
   updateLinkPlot(map, shap_points)
 })
 
-// listen to the video loading
+ipcRenderer.on('opened-video', (event, videoFile) => {
+  console.log("event: opened-video")
+  videoPlayer.src = videoFile 
+  videoPlayer.play()
+})
+
 videoPlayer.addEventListener('timeupdate', () => {
-  console.log("event: timeupdate" + "\t current time: " + videoPlayer.currentTime)
+  console.log("event: video-player -> ontimeupdate\n" + "currentTime: " + videoPlayer.currentTime)
+
+  mainProcess.getCurrentGPS(videoPlayer.currentTime)
 })
