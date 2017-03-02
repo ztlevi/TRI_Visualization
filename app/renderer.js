@@ -4,51 +4,17 @@ const {
 } = require('electron')
 
 mainProcess = remote.require('./tri_demo')
-
-// Cache DOM elements
-const videoLoadButton = document.querySelector('#load-video')
-const videoPlayButton = document.querySelector('#play-video')
-const videoPauseButton = document.querySelector('#pause-video')
+const TriMap = require('./triMap.js')
 
 const mapDisplay = document.querySelector('#map')
 const videoPlayer = document.querySelector('#video-player')
 
+
+let triMapper = null
+
 let map
 
 let driverMarker
-
-// initialize the Google Map
-const initMap = (lati, longi) => {
-    map = new google.maps.Map(mapDisplay, {
-        zoom: 15,
-        center: new google.maps.LatLng(lati, longi),
-        mapTypeId: 'roadmap'
-    })
-
-    var image = 'img/marker.png';
-    driverMarker = new google.maps.Marker({
-        position: new google.maps.LatLng(lati, longi),
-        title: "driver's current location",
-        icon: image,
-        animation: google.maps.Animation.DROP
-    })
-}
-
-// update the GPS point
-const updateGPSplot = (map, currentLat, currentLng) => {
-
-    driverMarker.setMap(null) 
-
-    let driverLatLng = new google.maps.LatLng(currentLat, currentLng)
-
-    driverMarker = new google.maps.Marker({
-        position: driverLatLng,
-        title: "driver's current location"
-    })
-    driverMarker.setMap(map)
-
-    // draw a new line from previous GPS location to the current place
-}
 
 // update the link section highlight
 const updateLinkPlot = (map, shape_points) => {
@@ -56,22 +22,6 @@ const updateLinkPlot = (map, shape_points) => {
     let directionsService = new google.maps.DirectionsService
 
     directionDisplay.setMap(map)
-
-    calculateAndDisplayRoute(directionsService, directionsDisplay, shape_points)
-}
-
-const calculateAndDisplayRoute = (directionsService, directionsDisplay, shape_points) => {
-    directionServie.route({
-        origin: shape_points[0],
-        destination: shape_points[end],
-        travelMode: 'DRIVING'
-    }, (response, status) => {
-        if (status == 'OK') {
-            directionsDisplay.setDirections(response)
-        } else {
-            window.alert('Directions request failed due to ' + status)
-        }
-    })
 }
 
 // Listen to the init signal
@@ -80,13 +30,13 @@ ipcRenderer.on('init', (event) => {
     let isl_lati = 42.31995
     let isl_longi = -83.233371
 
-    initMap(isl_lati, isl_longi)
+    triMapper = new TriMap(isl_lati, isl_longi, mapDisplay)
 })
 
 // Listen to the update-gps signal
 ipcRenderer.on('update-gps', (event, currentLat, currentLng) => {
     console.log("event: update-gps")
-    updateGPSplot(map, currentLat, currentLng)
+    triMapper.updateGPSplot(currentLat, currentLng)
 })
 
 // Listen to the update-link signal
