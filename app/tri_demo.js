@@ -90,9 +90,8 @@ const openVideoFromUser = exports.openVideoFromUser = () => {
 }
 
 const getCurrentGPS = exports.getCurrentGPS = (reqTimeStamp) => {
- 
-  if (Math.floor(reqTimeStamp) > Math.floor(lastReqTimestamp)) {
-
+  // if the time difference is greater than 1s
+  if (Math.abs(Math.floor(reqTimeStamp) - Math.floor(lastReqTimestamp)) >= 1) {
     let data_index = Math.floor(reqTimeStamp)
 
     currentLat = OBD_data[data_index].lati
