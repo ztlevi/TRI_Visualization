@@ -7,10 +7,6 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="./styles/main.css">
     <link rel="stylesheet" href="./styles/tri.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="./src/youtube.js" type="text/javascript"></script>
-    <script src="./src/googleMap.js" type="text/javascript"></script>
-    <script src="./src/test.js" type="text/javascript"></script>
   </head>
 
   <body>
@@ -54,7 +50,6 @@
 
       <!-- Video -->
       <section>
-        <h3>Video Player</h3>
         <div style="width:720px;height:480px;margin:auto">
           <!-- The video will appear here -->
           <video src="" controls width="720" height="480" id="video-player">
@@ -70,7 +65,6 @@
 
       <!-- Google Map -->
       <section>
-        <h3>My Google Maps Demo</h3>
         <div id="map" style="width:80%;height:450px;margin:auto"></div>
       </section>
 
@@ -98,7 +92,8 @@
       <!-- End page content -->
     </div>
     <script>
-     require('./renderer')
+     require('./renderer');
+     require('jquery');
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKewL3hAp5w0t6sSNgUuEZr4WXGF_CdgE">
     </script>
