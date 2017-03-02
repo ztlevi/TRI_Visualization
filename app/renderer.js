@@ -3,6 +3,10 @@ const {
 } = require('electron')
 
 // Cache DOM elements
+const videoLoadButton = document.querySelector('#load-video')
+const videoPlayButton = document.querySelector('#play-video')
+const videoPauseButton = document.querySelector('#pause-video')
+
 const mapDisplay = document.querySelector('#map')
 const videoPlayer = document.querySelector('#video-player')
 
@@ -18,10 +22,11 @@ const initMap = (lati, longi) => {
 }
 
 // update the GPS point
-const updateGPSplot = (map, lati, longi) => {
-  let driverLatLng = new google.maps.LatLng(lati, longi)
+const updateGPSplot = (map, currentLat, currentLng) => {
+  let driverLatLng = new google.maps.LatLng(currentLat, currentLng)
   let marker = new google.maps.Marker({
     position: driverLatLng,
+    zoom: 18,
     title: "driver's current location"
   })
   marker.setMap(map)
@@ -63,16 +68,20 @@ ipcRenderer.on('init', (event) => {
 })
 
 // Listen to the update-gps signal
-ipcRenderer.on('update-gps', (event, lati, longi) => {
-    updateGPSplot(map, lati, longi)
+ipcRenderer.on('update-gps', (event, currentLat, currentLng) => {
+  console.log("event: update-gps")
+  updateGPSplot(map, currentLat, currentLng)
 })
 
 // Listen to the update-link signal
 ipcRenderer.on('update-link', (event, shape_points) => {
+  console.log("event: update-link")
   updateLinkPlot(map, shap_points)
 })
 
-// listen to the video loading
-videoPlayer.addEventListener('timeupdate', () => {
-  console.log("event: timeupdate" + "\t current time: " + videoPlayer.currentTime)
+ipcRenderer.on('opened-video', (event, videoFile) => {
+  console.log("event: opened-video")
+  videoPlayer.src = videoFile 
+  videoPlayer.play()
 })
+

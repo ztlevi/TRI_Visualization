@@ -13,7 +13,8 @@ function sigData = extractSigCSVdata(fid, paramsVector)
     dataFormat = [dataFormat, repmat('%s', 1, error)];
     temp = textscan(fid, dataFormat, 'delimiter', ',');
     sigData = cell(size(temp{1, 1}, 1), size(temp, 2));
-    for i=1:size(paramsVector, 2)
+    for i = 1 : size(paramsVector, 2)
         sigData(:, i) = temp{1, i};
     end
+    
 end
