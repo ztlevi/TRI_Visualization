@@ -1,7 +1,7 @@
 #
 node_modules/*
 app/video/*
-
+video/
 .DS_Store
 
 *.swp
