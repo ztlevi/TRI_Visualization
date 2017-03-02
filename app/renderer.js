@@ -1,6 +1,9 @@
 const {
-    ipcRenderer
+  ipcRenderer,
+  remote
 } = require('electron')
+
+mainProcess = remote.require('./tri_demo')
 
 // Cache DOM elements
 const videoLoadButton = document.querySelector('#load-video')
@@ -12,6 +15,8 @@ const videoPlayer = document.querySelector('#video-player')
 
 let map
 
+let driverMarker
+
 // initialize the Google Map
 const initMap = (lati, longi) => {
   map = new google.maps.Map(mapDisplay, {
@@ -19,17 +24,25 @@ const initMap = (lati, longi) => {
     center: new google.maps.LatLng(lati, longi),
     mapTypeId: 'roadmap'
   })
+
+  driverMarker = new google.maps.Marker({
+    position: new google.maps.LatLng(lati, longi),
+    title: "driver's current location"
+  })
 }
 
 // update the GPS point
 const updateGPSplot = (map, currentLat, currentLng) => {
+
+  driverMarker.setMap(null) 
+
   let driverLatLng = new google.maps.LatLng(currentLat, currentLng)
-  let marker = new google.maps.Marker({
+
+  driverMarker = new google.maps.Marker({
     position: driverLatLng,
-    zoom: 18,
     title: "driver's current location"
   })
-  marker.setMap(map)
+  driverMarker.setMap(map)
 
   // draw a new line from previous GPS location to the current place
 }
@@ -85,3 +98,8 @@ ipcRenderer.on('opened-video', (event, videoFile) => {
   videoPlayer.play()
 })
 
+videoPlayer.addEventListener('timeupdate', () => {
+  console.log("event: video-player -> ontimeupdate\n" + "currentTime: " + videoPlayer.currentTime)
+
+  mainProcess.getCurrentGPS(videoPlayer.currentTime)
+})

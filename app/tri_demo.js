@@ -16,6 +16,9 @@ let currentLat = 0.0
 let currentLng = 0.0
 let lastReqTimestamp = 0.00
 
+let videoFile = null
+let OBD_data = null
+
 const createWindow = () => {
   // Create browser window
   mainWindow = new BrowserWindow({
@@ -67,14 +70,14 @@ const openVideoFromUser = exports.openVideoFromUser = () => {
   
   if (!videoFiles) { return }
   
-  const videoFile = videoFiles[0]
+  videoFile = videoFiles[0]
 
   console.log("Server: user selected the video: " + path.win32.basename(videoFile))
 
   const OBD_file = path.win32.dirname(videoFile) + '/../data/OBD.json'
   if (!OBD_file) { return }
 
-  const OBD_data = JSON.parse(fs.readFileSync(OBD_file, 'utf8'))
+  OBD_data = JSON.parse(fs.readFileSync(OBD_file, 'utf8'))
 
   currentLat = OBD_data[0].lati
   currentLng = OBD_data[0].long
@@ -86,6 +89,26 @@ const openVideoFromUser = exports.openVideoFromUser = () => {
   mainWindow.webContents.send('opened-video', videoFile)
 }
 
-// mainWindow.webContents.send('update-gps')
+const getCurrentGPS = exports.getCurrentGPS = (reqTimeStamp) => {
+ 
+  if (Math.floor(reqTimeStamp) > Math.floor(lastReqTimestamp)) {
+
+    let data_index = Math.floor(reqTimeStamp)
+
+    currentLat = OBD_data[data_index].lati
+    currentLng = OBD_data[data_index].long
+    
+    mainWindow.webContents.send('update-gps', currentLat, currentLng)
+  }
+
+  lastReqTimestamp = reqTimeStamp
+
+  console.log("Server: requset time: " + reqTimeStamp +
+    "current GPS: latitude " + currentLat + "\t longitude: " +
+      currentLng)
+
+  mainWindow.webContents.send('update-gps', currentLat, currentLng)
+}
+
 
 // mainWindow.webContents.send('update-link')
