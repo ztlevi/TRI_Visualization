@@ -4,17 +4,13 @@ const {
 } = require('electron')
 
 mainProcess = remote.require('./tri_demo')
-const TriMap = require('./triMap.js')
+const TriMap = require('./src/triMap.js')
 
 const mapDisplay = document.querySelector('#map')
 const videoPlayer = document.querySelector('#video-player')
 
 
 let triMapper = null
-
-let map
-
-let driverMarker
 
 // update the link section highlight
 const updateLinkPlot = (map, shape_points) => {
