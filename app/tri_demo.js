@@ -8,6 +8,8 @@ const {
 const fs = require('fs')
 const path = require('path')
 
+const sqlite3 = require('sqlite3').verbose()
+
 const applicationMenu = require('./application-menu')
 
 let mainWindow = null
@@ -18,6 +20,9 @@ let lastReqTimestamp = 0.00
 
 let videoFile = null
 let OBD_data = null
+
+// load dataBase
+const db = new sqlite3.Database('app/db/example.db')
 
 const createWindow = () => {
   // Create browser window
@@ -107,6 +112,25 @@ const getCurrentGPS = exports.getCurrentGPS = (reqTimeStamp) => {
       currentLng)
 
   mainWindow.webContents.send('update-gps', currentLat, currentLng)
+}
+
+const getCurrentLink = exports.getCurrentLink = (reqTimeStamp) => {
+  // if the time difference is greater than 1s
+ 
+  // get the current link 
+  querySahpePoints(db, linkID)
+} 
+    
+// query shape points of a given link
+const queryShapePoints = (db, linkID) => {
+  db.all("SELECT shape_pints from link_to_shape_points where link_ID="+linkID, function(err, row) {
+    shape_points_text = row[0].shape_points
+    console.log(shape_points_text)
+
+    // convert shape_points_text to shape_points_array
+    
+    mainWindow.webContents.send('update-links', shape_points_array)
+  }) 
 }
 
 

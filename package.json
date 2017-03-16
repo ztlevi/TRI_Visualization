@@ -4,16 +4,18 @@
   "description": "",
   "main": "./app/tri_demo.js",
   "scripts": {
-    "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "install-app-deps",
+    "start": "electron ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^1.4.15"
+    "electron": "^1.6",
+    "electron-builder": "^15.5.1"
   },
   "dependencies": {
-    "jquery": "^3.1.1"
+    "jquery": "^3.1.1",
+    "sqlite3": "^3.1.8"
   }
 }
