@@ -3,7 +3,7 @@ const {
     remote
 } = require('electron')
 
-mainProcess = remote.require('./tri_demo')
+mainProcess = remote.require('./tri_demo.js')
 const TriMap = require('./src/triMap.js')
 
 const mapDisplay = document.querySelector('#map')
@@ -51,4 +51,5 @@ videoPlayer.addEventListener('timeupdate', () => {
     console.log("event: video-player -> ontimeupdate\n" + "currentTime: " + videoPlayer.currentTime)
 
     mainProcess.getCurrentGPS(videoPlayer.currentTime)
+    mainProcess.getCurrentLink(videoPlayer.currentTimt)
 })
