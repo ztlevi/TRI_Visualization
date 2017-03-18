@@ -10,6 +10,7 @@ class TriMap{
         this.driverMarker = new google.maps.Marker({
             position: new google.maps.LatLng(Lat, Lng),
             title: "driver's current location",
+
             icon: this.markerImage,
             animation: google.maps.Animation.DROP
         })
@@ -42,13 +43,27 @@ class TriMap{
     updateLinkPlot(shape_points_array) {
         let shape_points_GPS = shape_points_array[0]
         let shape_points = shape_points_GPS.split(' ')
-        let start = shape_points[0]
-        let end = shape_points[1]
+        let start = {}
+        start.lat = parseFloat(shape_points[0])
+        start.lng = parseFloat(shape_points[1])
+        console.log(start)
+        let end = {}
+        shape_points_GPS = shape_points_array[1]
+        shape_points = shape_points_GPS.split(' ')
+        end.lat = parseFloat(shape_points[0])
+        end.lng = parseFloat(shape_points[1])
+        console.log(end)
         this.directionsService.route({
             origin: start,
             destination: end,
             travelMode: google.maps.DirectionsTravelMode.DRIVING
-        }, this.renderDirections(result));
+        // }, this.renderDirections(this.result));
+        },function(result) {
+            console.log(result)
+            renderDirections(result);
+        });
+        //this.renderDirections(result));
+        //renderDirections(this.result));
     }
 }
 

@@ -30,6 +30,7 @@ ipcRenderer.on('init', (event) => {
     let shape_points = []
     shape_points[0] = "42.2662388 -83.2381405"
     shape_points[1] = "42.2661476 -83.2410319"
+    console.log(shape_points)
     triMapper.updateLinkPlot(shape_points)
 })
 
