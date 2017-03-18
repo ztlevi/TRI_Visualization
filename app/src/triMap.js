@@ -13,6 +13,10 @@ class TriMap{
             icon: this.markerImage,
             animation: google.maps.Animation.DROP
         })
+        this.directionsRenderer = new google.maps.DirectionsRenderer({
+            suppressMarkers: true
+        });
+        this.directionsService = new google.maps.DirectionsService;
     }
 
     // update the GPS point
@@ -26,11 +30,26 @@ class TriMap{
             position: driverLatLng,
             title: "driver's current location",
             icon: this.markerImage,
-            animation: google.maps.Animation.BOUNCE
         })
         this.driverMarker.setMap(this.map)
     }
 
+    renderDirections(result) {
+        this.directionsRenderer.setMap(this.map);
+        this.directionsRenderer.setDirections(result);
+    }
+
+    updateLinkPlot(shape_points_array) {
+        let shape_points_GPS = shape_points_array[0]
+        let shape_points = shape_points_GPS.split(' ')
+        let start = shape_points[0]
+        let end = shape_points[1]
+        this.directionsService.route({
+            origin: start,
+            destination: end,
+            travelMode: google.maps.DirectionsTravelMode.DRIVING
+        }, this.renderDirections(result));
+    }
 }
 
 module.exports = TriMap

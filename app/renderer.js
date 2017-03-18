@@ -27,6 +27,10 @@ ipcRenderer.on('init', (event) => {
     let isl_longi = -83.233371
 
     triMapper = new TriMap(isl_lati, isl_longi, mapDisplay)
+    let shape_points = []
+    shape_points[0] = "42.2662388 -83.2381405"
+    shape_points[1] = "42.2661476 -83.2410319"
+    triMapper.updateLinkPlot(shape_points)
 })
 
 // Listen to the update-gps signal
@@ -38,7 +42,7 @@ ipcRenderer.on('update-gps', (event, currentLat, currentLng) => {
 // Listen to the update-link signal
 ipcRenderer.on('update-link', (event, shape_points) => {
     console.log("event: update-link")
-    updateLinkPlot(map, shap_points)
+    triMapper.updateLinkPlot(shap_points_array)
 })
 
 ipcRenderer.on('opened-video', (event, videoFile) => {

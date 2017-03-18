@@ -17,7 +17,7 @@ let mainWindow = null
 let currentLat = 0.0
 let currentLng = 0.0
 let lastReqTimestamp = 0.00
-
+ 
 let videoFile = null
 let OBD_data = null
 
@@ -27,19 +27,13 @@ const db = new sqlite3.Database(dbFile)
 
 test();
 function test() {
-    db.all("SELECT link_ID, shape_points FROM link_to_shape_points", function(err, rows) {  
-        console.log(rows);
-        console.log(err);
-    })
+    db.all("SELECT shape_points from link_to_shape_points where link_ID="
+           +16897389, function(err, row) {
+        let shape_points_text = row[0].shape_points
+        let shape_points_array = shape_points_text.split(',')
+        console.log(shape_points_array)
+    }) 
 
-    // db.serialize(function() {
-    //     db.each("SELECT link_ID, shape_points FROM link_to_shape_points", function(err, row) {
-    //         console.log(row)
-    //     });
-
-    // });
-
-    db.close();
 }
 
 const createWindow = () => {
@@ -132,24 +126,28 @@ const getCurrentGPS = exports.getCurrentGPS = (reqTimeStamp) => {
     mainWindow.webContents.send('update-gps', currentLat, currentLng)
 }
 
-const getCurrentLink = exports.getCurrentLink = (reqTimeStamp) => {
-    // if the time difference is greater than 1s
-    
-    // get the current link 
-    querySahpePoints(db, linkID)
-} 
-
 // query shape points of a given link
-const queryShapePoints = (db, linkID) => {
-    db.all("SELECT shape_pints from link_to_shape_points where link_ID="+linkID, function(err, row) {
-        shape_points_text = row[0].shape_points
-        console.log(shape_points_text)
+const queryShapePoints = (link_ID) => {
+    db.all("SELECT shape_points from link_to_shape_points where link_ID="
+           +16897389, function(err, row) {
+        let shape_points_text = row[0].shape_points
+        let shape_points_array = shape_points_text.split(',')
+        console.log(shape_points_array)
 
-        // convert shape_points_text to shape_points_array
-        
         mainWindow.webContents.send('update-links', shape_points_array)
     }) 
 }
+
+const getCurrentLink = exports.getCurrentLink = (reqTimeStamp) => {
+    if (Math.abs(Math.floor(reqTimeStamp) - Math.floor(lastReqTimestamp)) >= 1) {
+        let data_index = Math.floor(reqTimeStamp)
+
+        mainWindow.webContents.send('update-links', shape_points_array)
+    }
+    queryShapePoints(16897389)
+    // convert shape_points_text to shape_points_array
+    
+} 
 
 
 // mainWindow.webContents.send('update-link')
