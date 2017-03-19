@@ -14,10 +14,11 @@ class TriMap{
             icon: this.markerImage,
             animation: google.maps.Animation.DROP
         })
-        this.directionsRenderer = new google.maps.DirectionsRenderer({
-            suppressMarkers: true
-        });
-        this.directionsService = new google.maps.DirectionsService;
+
+        this.directionsDisplay = new google.maps.DirectionsRenderer
+        this.directionsDisplay.setMap(this.map)
+
+        this.directionsService = new google.maps.DirectionsService
     }
 
     // update the GPS point
@@ -35,35 +36,44 @@ class TriMap{
         this.driverMarker.setMap(this.map)
     }
 
+    // plot the directions
     renderDirections(result) {
+        console.log("test")
         this.directionsRenderer.setMap(this.map);
         this.directionsRenderer.setDirections(result);
     }
 
     updateLinkPlot(shape_points_array) {
-        let shape_points_GPS = shape_points_array[0]
-        let shape_points = shape_points_GPS.split(' ')
-        let start = {}
-        start.lat = parseFloat(shape_points[0])
-        start.lng = parseFloat(shape_points[1])
-        console.log(start)
-        let end = {}
-        shape_points_GPS = shape_points_array[1]
-        shape_points = shape_points_GPS.split(' ')
-        end.lat = parseFloat(shape_points[0])
-        end.lng = parseFloat(shape_points[1])
-        console.log(end)
-        this.directionsService.route({
-            origin: start,
-            destination: end,
-            travelMode: google.maps.DirectionsTravelMode.DRIVING
-        // }, this.renderDirections(this.result));
-        },function(result) {
-            console.log(result)
-            renderDirections(result);
-        });
-        //this.renderDirections(result));
-        //renderDirections(this.result));
+        for (let i = 0; i+1 < shape_points_array.length; i++) {
+            // get the start point of the direction
+            let shape_points_GPS = shape_points_array[i]
+            let shape_points = shape_points_GPS.split(' ')
+            let start = {}
+            start.lat = parseFloat(shape_points[0])
+            start.lng = parseFloat(shape_points[1])
+
+            // get teh end point of the direction
+            let end = {}
+            shape_points_GPS = shape_points_array[i+1]
+            shape_points = shape_points_GPS.split(' ')
+            end.lat = parseFloat(shape_points[0])
+            end.lng = parseFloat(shape_points[1])
+
+            console.log("Plot the direction" + start + ", " + end)
+
+            // render Direction
+            this.directionsService.route({
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            }, (result, status) => {
+                console.log(result)
+                this.directionsDisplay.setDirections(result);
+            })
+
+            console.log("Plot directions.\n Start: " + start + "\t End: "
+                        + end)
+        }
     }
 }
 

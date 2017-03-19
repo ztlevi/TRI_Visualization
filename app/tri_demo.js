@@ -17,7 +17,7 @@ let mainWindow = null
 let currentLat = 0.0
 let currentLng = 0.0
 let lastReqTimestamp = 0.00
- 
+
 let videoFile = null
 let OBD_data = null
 
@@ -25,16 +25,16 @@ let OBD_data = null
 let dbFile = "./app/db/example.db"
 const db = new sqlite3.Database(dbFile)
 
-test();
-function test() {
-    db.all("SELECT shape_points from link_to_shape_points where link_ID="
-           +16897389, function(err, row) {
-        let shape_points_text = row[0].shape_points
-        let shape_points_array = shape_points_text.split(',')
-        console.log(shape_points_array)
-    }) 
+// test();
+// function test() {
+//     db.all("SELECT shape_points from link_to_shape_points where link_ID="
+//            +16897389, function(err, row) {
+//         let shape_points_text = row[0].shape_points
+//         let shape_points_array = shape_points_text.split(',')
+//         console.log(shape_points_array)
+//     }) 
 
-}
+// }
 
 const createWindow = () => {
     // Create browser window
@@ -108,46 +108,48 @@ const openVideoFromUser = exports.openVideoFromUser = () => {
 
 const getCurrentGPS = exports.getCurrentGPS = (reqTimeStamp) => {
     // if the time difference is greater than 1s
+    // update the driver's current location on the google map
     if (Math.abs(Math.floor(reqTimeStamp) - Math.floor(lastReqTimestamp)) >= 1) {
         let data_index = Math.floor(reqTimeStamp)
 
         currentLat = OBD_data[data_index].lati
-        currentLng = OBD_data[data_index].long
+        currentLng = OBD_data[data_index].longi
         
         mainWindow.webContents.send('update-gps', currentLat, currentLng)
+
+        console.log("Plot Current GPS point.\n Server: requset time: " + reqTimeStamp +
+                    "\t current GPS: latitude " + currentLat + "\t longitude: " +
+                    currentLng)
     }
-
-    lastReqTimestamp = reqTimeStamp
-
-    console.log("Server: requset time: " + reqTimeStamp +
-                "current GPS: latitude " + currentLat + "\t longitude: " +
-                currentLng)
-
-    mainWindow.webContents.send('update-gps', currentLat, currentLng)
 }
 
 // query shape points of a given link
 const queryShapePoints = (link_ID) => {
     db.all("SELECT shape_points from link_to_shape_points where link_ID="
-           +16897389, function(err, row) {
-        let shape_points_text = row[0].shape_points
-        let shape_points_array = shape_points_text.split(',')
-        console.log(shape_points_array)
+           +link_ID, function(err, row) {
+               let shape_points_text = row[0].shape_points
+               let shape_points_array = shape_points_text.split(',')
+               console.log(shape_points_array)
 
-        mainWindow.webContents.send('update-links', shape_points_array)
-    }) 
+               mainWindow.webContents.send('update-link', shape_points_array)
+           }) 
 }
 
 const getCurrentLink = exports.getCurrentLink = (reqTimeStamp) => {
     if (Math.abs(Math.floor(reqTimeStamp) - Math.floor(lastReqTimestamp)) >= 1) {
         let data_index = Math.floor(reqTimeStamp)
 
-        mainWindow.webContents.send('update-links', shape_points_array)
+        let link_ID= OBD_data[data_index].linkID
+
+        queryShapePoints(link_ID)
+        console.log("Plot directions.\n Server: requset time: " + reqTimeStamp)
     }
-    queryShapePoints(16897389)
     // convert shape_points_text to shape_points_array
     
 } 
 
+const updateLastReqTimestamp = exports.updateLastReqTimestamp = (reqTimeStamp) => {
+    lastReqTimestamp = reqTimeStamp
+}
 
 // mainWindow.webContents.send('update-link')
