@@ -41,9 +41,9 @@ ipcRenderer.on('update-gps', (event, currentLat, currentLng) => {
 })
 
 // Listen to the update-link signal
-ipcRenderer.on('update-link', (event, shape_points_array) => {
+ipcRenderer.on('update-link', (event, shape_points_array, data) => {
     console.log("event: update-link")
-    triMapper.updateLinkPlot(shap_points_array)
+    triMapper.updateLinkPlot(shape_points_array, data)
 })
 
 ipcRenderer.on('opened-video', (event, videoFile) => {
@@ -57,5 +57,5 @@ videoPlayer.addEventListener('timeupdate', () => {
 
     mainProcess.getCurrentGPS(videoPlayer.currentTime)
     mainProcess.getCurrentLink(videoPlayer.currentTime)
-    mainProcess.updateLastReqTimestamp(videoPlayer.currentTime)
+    mainProcess.updateLocalVariables(videoPlayer.currentTime)
 })

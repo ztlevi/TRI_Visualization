@@ -25,17 +25,6 @@ let OBD_data = null
 let dbFile = "./app/db/example.db"
 const db = new sqlite3.Database(dbFile)
 
-// test();
-// function test() {
-//     db.all("SELECT shape_points from link_to_shape_points where link_ID="
-//            +16897389, function(err, row) {
-//         let shape_points_text = row[0].shape_points
-//         let shape_points_array = shape_points_text.split(',')
-//         console.log(shape_points_array)
-//     }) 
-
-// }
-
 const createWindow = () => {
     // Create browser window
     mainWindow = new BrowserWindow({
@@ -106,50 +95,59 @@ const openVideoFromUser = exports.openVideoFromUser = () => {
     mainWindow.webContents.send('opened-video', videoFile)
 }
 
+// Get the current GPS and send the update-gps signal /////////////////////////
 const getCurrentGPS = exports.getCurrentGPS = (reqTimeStamp) => {
     // if the time difference is greater than 1s
     // update the driver's current location on the google map
     if (Math.abs(Math.floor(reqTimeStamp) - Math.floor(lastReqTimestamp)) >= 1) {
         let data_index = Math.floor(reqTimeStamp)
-
-        currentLat = OBD_data[data_index].lati
-        currentLng = OBD_data[data_index].longi
-        
-        mainWindow.webContents.send('update-gps', currentLat, currentLng)
-
-        console.log("Plot Current GPS point.\n Server: requset time: " + reqTimeStamp +
-                    "\t current GPS: latitude " + currentLat + "\t longitude: " +
-                    currentLng)
+        mainWindow.webContents.send('update-gps', OBD_data[data_index].lati,
+                                    OBD_data[data_index].longi)
     }
 }
 
-// query shape points of a given link
-const queryShapePoints = (link_ID) => {
+// query shape points of a given link and sene the update-link signal /////////
+const queryShapePoints = exports.queryShapePoints =  (data) => {
     db.all("SELECT shape_points from link_to_shape_points where link_ID="
-           +link_ID, function(err, row) {
+           +data.link_ID, (err, row) => {
                let shape_points_text = row[0].shape_points
                let shape_points_array = shape_points_text.split(',')
-               console.log(shape_points_array)
+               console.log("link ID: " + data.link_ID)
+               console.log("Shape Point Array: " + shape_points_array)
 
-               mainWindow.webContents.send('update-link', shape_points_array)
+               // update Links
+               mainWindow.webContents.send('update-link', shape_points_array, data)
            }) 
 }
 
+// Get the current Link ///////////////////////////////////////////////////////
 const getCurrentLink = exports.getCurrentLink = (reqTimeStamp) => {
     if (Math.abs(Math.floor(reqTimeStamp) - Math.floor(lastReqTimestamp)) >= 1) {
         let data_index = Math.floor(reqTimeStamp)
 
-        let link_ID= OBD_data[data_index].linkID
+        let data = {}
 
-        queryShapePoints(link_ID)
+        data.link_ID = OBD_data[data_index].linkID
+        data.speed = OBD_data[data_index].speed
+        data.lat = OBD_data[data_index].lati
+        data.lng = OBD_data[data_index].longi
+
+        queryShapePoints(data)
         console.log("Plot directions.\n Server: requset time: " + reqTimeStamp)
     }
     // convert shape_points_text to shape_points_array
     
 } 
 
-const updateLastReqTimestamp = exports.updateLastReqTimestamp = (reqTimeStamp) => {
-    lastReqTimestamp = reqTimeStamp
-}
+// Update the lastReqTimestamp, currentLat and currentLng /////////////////////
+const updateLocalVariables = exports.updateLocalVariables= (reqTimeStamp) => {
+    let data_index = Math.floor(reqTimeStamp)
 
-// mainWindow.webContents.send('update-link')
+    currentLat = OBD_data[data_index].lati
+    currentLng = OBD_data[data_index].longi
+    lastReqTimestamp = reqTimeStamp
+
+    console.log("Update Local Variables.\n Server: requset time: " + reqTimeStamp +
+                "\t current GPS: latitude " + currentLat + "\t longitude: " +
+                currentLng)
+}
