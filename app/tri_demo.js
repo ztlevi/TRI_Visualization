@@ -14,9 +14,12 @@ const applicationMenu = require('./application-menu')
 
 let mainWindow = null
 
+// current variables means the last variables during the processing, and update
+// them at the end of the 'timeupdate' signal of the video
 let currentLat = 0.0
 let currentLng = 0.0
 let lastReqTimestamp = 0.00
+let currentLink = 0
 
 let videoFile = null
 let OBD_data = null
@@ -132,8 +135,11 @@ const getCurrentLink = exports.getCurrentLink = (reqTimeStamp) => {
         data.lat = OBD_data[data_index].lati
         data.lng = OBD_data[data_index].longi
 
-        queryShapePoints(data)
-        console.log("Plot directions.\n Server: requset time: " + reqTimeStamp)
+        // Query the database when the link_ID does not equal to the currentLink
+        if (data.link_ID != currentLink) {
+            queryShapePoints(data)
+            console.log("Plot directions.\n Server: requset time: " + reqTimeStamp)
+        }
     }
     // convert shape_points_text to shape_points_array
     
@@ -145,6 +151,7 @@ const updateLocalVariables = exports.updateLocalVariables= (reqTimeStamp) => {
 
     currentLat = OBD_data[data_index].lati
     currentLng = OBD_data[data_index].longi
+    currentLink = OBD_data[data_index].linkID
     lastReqTimestamp = reqTimeStamp
 
     console.log("Update Local Variables.\n Server: requset time: " + reqTimeStamp +
