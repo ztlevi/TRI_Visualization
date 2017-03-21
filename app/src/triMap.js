@@ -71,6 +71,16 @@ class TriMap{
         // get first GPS point of the link ////////////////////////////////////
         console.log('Data: ' + JSON.stringify(data))
 
+        // get the last GPS point of the link /////////////////////////////////
+        // if shape points size > threshold, then cut off the first and last shape_point
+        // this helps to better plot directions on ramp and highway, because the
+        // shape_points on them are a lot, but the start and end is not accuarte
+        // And will cause detours when ploting
+        let shape_points_threshold = 5
+        if (shape_points_array.length > shape_points_threshold) {
+            shape_points_array = shape_points_array.slice(1, shape_points_array.length-1)
+        }
+
         let shape_points_GPS = shape_points_array[0]
         let shape_points = shape_points_GPS.split(' ')
         let point1 = new google.maps.LatLng(parseFloat(shape_points[0]),
@@ -89,18 +99,11 @@ class TriMap{
             })
         }
 
-        // get the last GPS point of the link /////////////////////////////////
-        // if way points size > 4, then the point2 set to be the last point
-        // of the way points, other than the last point of the shape points
         let point2
-        let len = shape_points_array.length - 1
-        if (waypts.length > 4) {
-            len--
-        }
-        shape_points_GPS = shape_points_array[len]
+        shape_points_GPS = shape_points_array[shape_points_array.length-1]
         shape_points = shape_points_GPS.split(' ')
         point2 = new google.maps.LatLng(parseFloat(shape_points[0]),
-                                            parseFloat(shape_points[1]))
+                                        parseFloat(shape_points[1]))
 
         // define the start and end by calculate the vector product ///////////
         let start = point1, end = point2

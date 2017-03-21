@@ -25,7 +25,7 @@ let videoFile = null
 let OBD_data = null
 
 // load dataBase
-let dbFile = "./app/db/example.db"
+let dbFile = path.join(app.getAppPath(), 'app/db/example.db')
 const db = new sqlite3.Database(dbFile)
 
 const createWindow = () => {
