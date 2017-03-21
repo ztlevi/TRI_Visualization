@@ -3,8 +3,6 @@ node_modules/*
 app/video/*
 app/matlab/output/*
 
-app/data/*
-
 .DS_Store
 
 *.swp
