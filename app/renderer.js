@@ -55,7 +55,5 @@ ipcRenderer.on('opened-video', (event, videoFile) => {
 videoPlayer.addEventListener('timeupdate', () => {
     console.log("event: video-player -> ontimeupdate\n" + "currentTime: " + videoPlayer.currentTime)
 
-    mainProcess.getCurrentGPS(videoPlayer.currentTime)
-    mainProcess.getCurrentLink(videoPlayer.currentTime)
-    mainProcess.updateLocalVariables(videoPlayer.currentTime)
+    mainProcess.updateMap(videoPlayer.currentTime)
 })

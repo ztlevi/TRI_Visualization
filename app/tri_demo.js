@@ -89,7 +89,7 @@ const openVideoFromUser = exports.openVideoFromUser = () => {
     OBD_data = JSON.parse(fs.readFileSync(OBD_file, 'utf8'))
 
     currentLat = OBD_data[0].lati
-    currentLng = OBD_data[0].long
+    currentLng = OBD_data[0].longi
 
     console.log("Start GPS position:\t latittude: " + currentLat + "longitude: " + currentLng)
 
@@ -98,19 +98,17 @@ const openVideoFromUser = exports.openVideoFromUser = () => {
     mainWindow.webContents.send('opened-video', videoFile)
 }
 
-// Get the current GPS and send the update-gps signal /////////////////////////
-const getCurrentGPS = exports.getCurrentGPS = (reqTimeStamp) => {
+// Get the current GPS and send the update-gps signal to update ////////////////
+const updateCurrentGPS = (reqTimeStamp) => {
     // if the time difference is greater than 1s
     // update the driver's current location on the google map
-    if (Math.abs(Math.floor(reqTimeStamp) - Math.floor(lastReqTimestamp)) >= 1) {
-        let data_index = Math.floor(reqTimeStamp)
-        mainWindow.webContents.send('update-gps', OBD_data[data_index].lati,
-                                    OBD_data[data_index].longi)
-    }
+    let data_index = Math.floor(reqTimeStamp)
+    mainWindow.webContents.send('update-gps', OBD_data[data_index].lati,
+                                OBD_data[data_index].longi)
 }
 
 // query shape points of a given link and sene the update-link signal /////////
-const queryShapePoints = exports.queryShapePoints =  (data) => {
+const queryShapePoints =  (data) => {
     db.all("SELECT shape_points from link_to_shape_points where link_ID="
            +data.link_ID, (err, row) => {
                let shape_points_text = row[0].shape_points
@@ -124,29 +122,27 @@ const queryShapePoints = exports.queryShapePoints =  (data) => {
 }
 
 // Get the current Link ///////////////////////////////////////////////////////
-const getCurrentLink = exports.getCurrentLink = (reqTimeStamp) => {
-    if (Math.abs(Math.floor(reqTimeStamp) - Math.floor(lastReqTimestamp)) >= 1) {
-        let data_index = Math.floor(reqTimeStamp)
+const updateCurrentLink  = (reqTimeStamp) => {
+    let data_index = Math.floor(reqTimeStamp)
 
-        let data = {}
+    let data = {}
 
-        data.link_ID = OBD_data[data_index].linkID
+    data.link_ID = OBD_data[data_index].linkID
+    // do not queryShapePoints if the currentlink equals data.link_ID
+    if (data.link_ID != currentLink) {
+        data.interval = Math.floor(reqTimeStamp) - Math.floor(lastReqTimestamp)
         data.speed = OBD_data[data_index].speed
         data.lat = OBD_data[data_index].lati
         data.lng = OBD_data[data_index].longi
 
         // Query the database when the link_ID does not equal to the currentLink
-        if (data.link_ID != currentLink) {
-            queryShapePoints(data)
-            console.log("Plot directions.\n Server: requset time: " + reqTimeStamp)
-        }
+        queryShapePoints(data)
+        console.log("Plot directions.\n Server: requset time: " + reqTimeStamp)
     }
-    // convert shape_points_text to shape_points_array
-    
 } 
 
 // Update the lastReqTimestamp, currentLat and currentLng /////////////////////
-const updateLocalVariables = exports.updateLocalVariables= (reqTimeStamp) => {
+const updateLocalVariables = (reqTimeStamp) => {
     let data_index = Math.floor(reqTimeStamp)
 
     currentLat = OBD_data[data_index].lati
@@ -157,4 +153,17 @@ const updateLocalVariables = exports.updateLocalVariables= (reqTimeStamp) => {
     console.log("Update Local Variables.\n Server: requset time: " + reqTimeStamp +
                 "\t current GPS: latitude " + currentLat + "\t longitude: " +
                 currentLng)
+}
+
+// Update Map /////////////////////////////////////////////////////////////////
+const updateMap = exports.updateMap = (reqTimeStamp) => {
+    // set the update interval to 1s
+    let interval = 1
+    let realInterval = Math.abs(Math.floor(reqTimeStamp) - Math.floor(lastReqTimestamp))
+
+    if (realInterval >= interval) {
+        updateCurrentGPS(reqTimeStamp)
+        updateCurrentLink(reqTimeStamp)
+        updateLocalVariables(reqTimeStamp)
+    }
 }

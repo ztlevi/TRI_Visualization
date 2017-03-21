@@ -104,6 +104,7 @@ class TriMap{
 
         // define the start and end by calculate the vector product ///////////
         let start = point1, end = point2
+
         // define the threshold for speed
         let speedThreshold = 1
         if (data.speed > speedThreshold){
@@ -120,6 +121,13 @@ class TriMap{
                 waypts.reverse()
             }
 
+            // swap the start and end if the interval < 0
+            // means drag the video seekbar backwards
+            if (data.interval < 0) {
+                let foo = start
+                start = end
+                end = foo
+            }
             // only plot directions when sthe speed > threshold
             this.renderDirections(start, end, waypts)
         }
