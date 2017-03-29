@@ -21,6 +21,18 @@ class TriMap{
             icon: this.markerImage,
             animation: google.maps.Animation.DROP
         })
+        this.polyline = new google.maps.Polyline({
+            strokeColor: '#000000',
+            strokeOpacity: 1.0,
+            strokeWeight: 3
+        });
+        // this.ployline = new google.maps.Polyline({
+        //     path: flightPlanCoordinates,
+        //     geodesic: true,
+        //     strokeColor: '#FF0000',
+        //     strokeOpacity: 1.0,
+        //     strokeWeight: 2
+        // })
         this.directionsRenderer = new google.maps.DirectionsRenderer({
             // suppressMarkers: true,
             preserveViewport: true
@@ -44,6 +56,23 @@ class TriMap{
             icon: this.markerImage,
         })
         this.driverMarker.setMap(this.map)
+        this.map.panTo(this.driverMarker.getPosition());
+    }
+
+    renderPolyline(shape_points_array, data) {
+        // pass the data for future usage
+        console.log(shape_points_array)
+        console.log(data)
+
+        var arrOfShapePoints = []
+        
+        for (let i = 0; i < shape_points_array.length; i++) {
+            let arr = shape_points_array[i].split(' ')
+            arrOfShapePoints.push(new google.maps.LatLng(arr[0], arr[1]));
+        }
+
+        this.polyline.setPath(arrOfShapePoints)
+        this.polyline.setMap(this.map)
     }
 
     // plot the directions
