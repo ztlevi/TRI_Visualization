@@ -80,6 +80,7 @@ const openVideoFromUser = exports.openVideoFromUser = () => {
     if (!videoFiles) { return }
     
     videoFile = videoFiles[0]
+    console.log(videoFile)
 
     console.log("Server: user selected the video: " + path.win32.basename(videoFile))
 

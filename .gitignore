@@ -1,6 +1,7 @@
 #
 node_modules/*
 app/video/*
+app/TAGS
 app/matlab/output/*
 
 .DS_Store

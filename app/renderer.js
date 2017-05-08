@@ -49,11 +49,12 @@ ipcRenderer.on('update-link', (event, shape_points_array, data) => {
 ipcRenderer.on('opened-video', (event, videoFile) => {
     console.log("event: opened-video")
     videoPlayer.src = videoFile 
+    $("#videoPath").text(videoFile.toString())
     videoPlayer.play()
 })
 
 videoPlayer.addEventListener('timeupdate', () => {
     console.log("event: video-player -> ontimeupdate\n" + "currentTime: " + videoPlayer.currentTime)
-
+    $("#currentTime").text(videoPlayer.currentTime)
     mainProcess.updateMap(videoPlayer.currentTime)
 })

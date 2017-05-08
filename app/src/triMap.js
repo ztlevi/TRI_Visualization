@@ -22,7 +22,7 @@ class TriMap{
             animation: google.maps.Animation.DROP
         })
         this.polyline = new google.maps.Polyline({
-            strokeColor: '#000000',
+            strokeColor: '#00bfff',
             strokeOpacity: 1.0,
             strokeWeight: 3
         });
@@ -61,6 +61,18 @@ class TriMap{
 
     renderPolyline(shape_points_array, data) {
         // pass the data for future usage
+        // $("#updateInterval").text(data.interval.toString())
+        $("#link_ID").text(data.link_ID.toString())
+        $("#lat").text(data.lat.toString())
+        $("#lng").text(data.lng.toString())
+
+        $("#shape_points_array").text("");
+        for(let i = 0; i < shape_points_array.length; i++) {
+            // foo += shape_points_array[i].toString() + "\r\n"
+            $("#shape_points_array").append(
+                "<li>" + shape_points_array[i].toString() + "</li>")
+        }
+
         console.log(shape_points_array)
         console.log(data)
 
@@ -76,6 +88,7 @@ class TriMap{
     }
 
     // plot the directions
+    // Deprecated right now
     renderDirections(start, end, waypts) {
         // render Direction
         this.directionsService.route({
@@ -95,7 +108,8 @@ class TriMap{
             }
         })
     }
-
+    
+    // Deprecated right now
     updateLinkPlot (shape_points_array, data) {
         // get first GPS point of the link ////////////////////////////////////
         console.log('Data: ' + JSON.stringify(data))

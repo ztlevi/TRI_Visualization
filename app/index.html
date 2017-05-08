@@ -7,6 +7,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="./styles/main.css">
     <link rel="stylesheet" href="./styles/tri.css">
+    <link rel="stylesheet" href="./styles/bootstrap.min.css">
   </head>
 
   <body>
@@ -28,13 +29,13 @@
     <!-- Header -->
     <header class="w3-display-container w3-content w3-wide"
             style="max-width:1500px;" id="home">
-      <img class="w3-image" src="./img/architect.jpg" alt="Architecture"
+      <img class="w3-image" src="./img/tri_header.jpg" alt="Architecture"
            width="1500" height="800">
       <div class="w3-display-middle w3-margin-top w3-center">
         <h1 class="w3-xxlarge w3-text-white">
           <a id="startDemo" href="#projects" style="text-decoration:none">
             <span class="w3-padding w3-black w3-opacity-min"><b>TRI</b></span>
-            <span class="w3-hide-small w3-text-light-grey">Demo Start</span>
+            <span class="w3-hide-small w3-text-light-grey">Demo</span>
           </a>
         </h1>
       </div>
@@ -50,17 +51,31 @@
 
       <!-- Video -->
       <section>
-        <div style="width:720px;height:480px;margin:auto">
-          <!-- The video will appear here -->
-          <video src="" controls width="720" height="480" id="video-player">
-            You browser does not support the video element, please try ...
-          </video>
+        <div class="row">
+          <div class="col-md-8">
+            <div  id="centerVideo">
+              <!-- The video will appear here -->
+              <video src="" controls width="720" height="480" id="video-player">
+                You browser does not support the video element, please try ...
+              </video>
+            </div>
+          </div>
+          <div id="realtimeInfo" class="col-md-4">
+            <ul>
+              <li><b>Video Path: </b><span id="videoPath"></span></li>
+              <li><b>Current Time: </b><span id="currentTime"></span></li>
+              <!-- <li><b>Update Interval: </b><span id="updateInterval"></span></li> -->
+              <li><b>Link_ID: </b><span id="link_ID"></span></li>
+              <li><b>Latitude: </b><span id="lat"></span></li>
+              <li><b>Longtitude: </b><span id="lng"></span></li>
+              <li><b>Shape Points Array: </b>
+                <div style="height:150px;overflow-y:scroll">
+                  <ol id="shape_points_array"></ol>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-        <nav>
-          <ul>
-            <!-- The video playllist will appear here -->
-          </ul>
-        </nav>
       </section>
 
       <!-- Google Map -->
@@ -92,9 +107,9 @@
       <!-- End page content -->
     </div>
     <script>
+     var $ = require('jquery')
      require('./renderer')
      require('./src/triMap')
-     require('jquery')
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKewL3hAp5w0t6sSNgUuEZr4WXGF_CdgE">
     </script>
