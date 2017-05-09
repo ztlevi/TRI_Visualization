@@ -16,7 +16,7 @@ let mainWindow = null
 
 // current variables means the last variables during the processing, and update
 // them at the end of the 'timeupdate' signal of the video
-let currentLat = 0.1
+let currentLat = 0.0
 let currentLng = 0.0
 let lastReqTimestamp = 0.00
 let currentLink = 0
@@ -25,7 +25,7 @@ let videoFile = null
 let OBD_data = null
 
 // load dataBase
-let dbFile = path.join(app.getAppPath(), 'app/db/example.db')
+let dbFile = path.join(app.getAppPath(), 'app/db/link_static_info.db')
 const db = new sqlite3.Database(dbFile)
 
 const createWindow = () => {
@@ -41,7 +41,7 @@ const createWindow = () => {
         mainWindow.webContents.send('init')
     })
 
-    mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
 
     mainWindow.on('closed', () => {
         mainWindow = null
@@ -111,7 +111,7 @@ const updateCurrentGPS = (reqTimeStamp) => {
 // query shape points of a given link and sene the update-link signal /////////
 const queryShapePoints =  (data) => {
     db.all("SELECT shape_points from link_to_shape_points where link_ID="
-           +data.link_ID, (err, row) => {
+           + data.link_ID, (err, row) => {
                let shape_points_text = row[0].shape_points
                let shape_points_array = shape_points_text.split(',')
                console.log("link ID: " + data.link_ID)
