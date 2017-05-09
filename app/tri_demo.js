@@ -16,7 +16,7 @@ let mainWindow = null
 
 // current variables means the last variables during the processing, and update
 // them at the end of the 'timeupdate' signal of the video
-let currentLat = 0.0
+let currentLat = 0.1
 let currentLng = 0.0
 let lastReqTimestamp = 0.00
 let currentLink = 0
