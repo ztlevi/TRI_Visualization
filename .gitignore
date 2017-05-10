@@ -3,6 +3,7 @@ node_modules/*
 app/video/*
 app/TAGS
 app/matlab/output/*
+*.log
 
 .DS_Store
 
