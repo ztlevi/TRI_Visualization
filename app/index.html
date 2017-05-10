@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./styles/main.css">
     <link rel="stylesheet" href="./styles/tri.css">
     <link rel="stylesheet" href="./styles/bootstrap.min.css">
+    <link rel="stylesheet" href="./styles/video.css"/>
   </head>
 
   <body>
@@ -51,31 +52,26 @@
 
       <!-- Video -->
       <section>
-        <div class="row">
-          <div class="col-md-8">
-            <div  id="centerVideo">
-              <!-- The video will appear here -->
-              <video src="" controls width="720" height="480" id="video-player">
-                You browser does not support the video element, please try ...
-              </video>
-            </div>
-          </div>
-          <div id="realtimeInfo" class="col-md-4">
-            <ul>
-              <li><b>Video Path: </b><span id="videoPath"></span></li>
-              <li><b>Current Time: </b><span id="currentTime"></span></li>
-              <!-- <li><b>Update Interval: </b><span id="updateInterval"></span></li> -->
-              <li><b>Link_ID: </b><span id="link_ID"></span></li>
-              <li><b>Latitude: </b><span id="lat"></span></li>
-              <li><b>Longtitude: </b><span id="lng"></span></li>
-              <li><b>Shape Points Array: </b>
-                <div style="height:150px;overflow-y:scroll">
-                  <ol id="shape_points_array"></ol>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <!-- The video will appear here -->
+        <div class="video-wrapper js-video-wrapper">
+		  <div class="video-responsive">
+			<video class="video js-video"  id="video-player" src="" muted="" style="display: none;">
+			  <!-- <source src=""> -->
+			  Your browser does not support HTML5 video.
+			</video>
+
+			<canvas class="canvas js-canvas"></canvas>
+
+			<div class="video-timeline js-timeline">
+			  <div class="video-timeline-passed js-timeline-passed" style="width: 9.09%;">
+			  </div>
+			</div>
+			<div class="video-timeline js-timeline">
+			  <div class="video-timeline-passed js-timeline-passed" style="width: 9.09%;">
+			  </div>
+			</div
+		  </div>
+	    </div>
       </section>
 
       <!-- Google Map -->
@@ -106,8 +102,27 @@
       
       <!-- End page content -->
     </div>
-    <script>
+    <script type="text/javascript">
      var $ = require('jquery')
+    </script>
+	<script src="./src/fastclick.js"></script>
+	<script src="./src/videoCanvas.js"></script>
+	<script src="./src/canvas-video-player.js"></script>
+
+	<script>
+	 var canvasVideo = new CanvasVideoPlayer({
+	   videoSelector: '.js-video',
+	   canvasSelector: '.js-canvas',
+	   timelineSelector: '.js-timeline',
+	   audio: false,
+       framesPerSecond: 30,
+       autoplay: false,
+       // IMPORTANT On iOS can't be used together with autoplay, autoplay will be disabled
+	   loop: false
+	 });
+	</script>
+
+    <script>
      require('./renderer')
      require('./src/triMap')
     </script>
