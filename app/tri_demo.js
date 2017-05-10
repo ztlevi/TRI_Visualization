@@ -18,11 +18,17 @@ let mainWindow = null
 // them at the end of the 'timeupdate' signal of the video
 let currentLat = 0.0
 let currentLng = 0.0
+
 let lastReqTimestamp = 0.00
+
 let currentLink = 0
+
+let currentSeg = null
+let currentSeg_index = 0
 
 let videoFile = null
 let OBD_data = null
+let infras_seg_result = null
 
 // load dataBase
 let dbFile = path.join(app.getAppPath(), 'app/db/link_static_info.db')
@@ -85,14 +91,23 @@ const openVideoFromUser = exports.openVideoFromUser = () => {
     console.log("Server: user selected the video: " + path.win32.basename(videoFile))
 
     const OBD_file = path.join(app.getAppPath(), 'app/data/OBD.json')
-    if (!OBD_file) { return }
+    const infras_seg_result_file = path.join(app.getAppPath(),
+                                            'app/data/infras_segment_result.json')
 
-    OBD_data = JSON.parse(fs.readFileSync(OBD_file, 'utf8'))
+    try {
+        OBD_data = JSON.parse(fs.readFileSync(OBD_file, 'utf8'))
+        infras_seg_result = JSON.parse(fs.readFileSync(infras_seg_result_file, 'utf8'))
+    }
+    catch(err) {
+        console.log(err.message)
+    }
 
     currentLat = OBD_data[0].lati
     currentLng = OBD_data[0].longi
-
     console.log("Start GPS position:\t latittude: " + currentLat + "longitude: " + currentLng)
+    
+    // store the status of the current segment
+    currentSeg = infras_seg_result[currentSeg_index]
 
     mainWindow.webContents.send('update-gps', currentLat, currentLng)
 
@@ -131,6 +146,8 @@ const updateCurrentLink  = (reqTimeStamp) => {
     data.link_ID = OBD_data[data_index].linkID
     // do not queryShapePoints if the currentlink equals data.link_ID
     if (data.link_ID != currentLink) {
+        // check if currentLink is in the segment
+
         data.interval = Math.floor(reqTimeStamp) - Math.floor(lastReqTimestamp)
         data.speed = OBD_data[data_index].speed
         data.lat = OBD_data[data_index].lati
@@ -165,6 +182,25 @@ const updateMap = exports.updateMap = (reqTimeStamp) => {
     if (realInterval >= interval) {
         updateCurrentGPS(reqTimeStamp)
         updateCurrentLink(reqTimeStamp)
+        //
         updateLocalVariables(reqTimeStamp)
+    }
+}
+
+// Update Segmentation information
+const updateSegInfo = exports.updateSegInfo = (reqTimeStamp) => {
+    console.assert(reqTimeStamp > currentSeg.start_time,
+        "reqTimeStamp should be later than the start time of currentSeg.")
+
+    if (reqTimeStamp > currentSeg.end_time) {
+        currentSeg_index += 1
+        currentSeg = infras_seg_result[currentSeg_index]
+        console.log("enter into a new road_segmentation: " + currentSeg_index)
+        console.log("segment infrastructure type: " + str(currentSeg_index.infras_type))
+        
+        // draw text on the graph
+    }
+    else {
+        console.log("stay in the same road_segmentation.")
     }
 }

@@ -9,10 +9,13 @@ const TriMap = require('./src/triMap.js')
 const mapDisplay = document.querySelector('#map')
 const videoPlayer = document.querySelector('#video-player')
 
-
 let triMapper = null
 let current_data = null
 let current_shape_points_array = null
+
+let video = document.getElementById("video-player")
+let canvas = document.getElementById("canvas")
+let fc = new frameConverter(video, canvas, current_data,current_shape_points_array)
 
 // update the link section highlight
 const updateLinkPlot = (map, shape_points) => {
@@ -60,9 +63,8 @@ ipcRenderer.on('opened-video', (event, videoFile) => {
 videoPlayer.addEventListener('timeupdate', () => {
     console.log("event: video-player -> ontimeupdate\n" + "currentTime: " + videoPlayer.currentTime)
     $("#currentTime").text(videoPlayer.currentTime)
+     // update segmentation information
+    mainProcess.updateSegInfo(videoPlayer.currentTime)
+    // update map information
     mainProcess.updateMap(videoPlayer.currentTime)
 })
-
-video = document.getElementById("video-player");
-canvas = document.getElementById("canvas");
-fc = new frameConverter(video,canvas,current_data,current_shape_points_array);

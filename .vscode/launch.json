@@ -10,7 +10,7 @@
             "name": "Launch Program",
             "program": "${workspaceRoot}/app/tri_demo.js",
             "cwd": "${workspaceRoot}",
-            "runtimeExecutable": "${workspaceRoot}/node_modules/electron-prebuilt/dist/Electron.app/Contents/MacOS/Electron",
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
             "runtimeArgs": [
                 ".",
                 "--enable-logging"
