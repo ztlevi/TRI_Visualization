@@ -50,7 +50,7 @@ ipcRenderer.on('opened-video', (event, videoFile) => {
     console.log("event: opened-video")
     videoPlayer.src = videoFile 
     $("#videoPath").text(videoFile.toString())
-    videoPlayer.play()
+    // videoPlayer.play()
 })
 
 videoPlayer.addEventListener('timeupdate', () => {

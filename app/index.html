@@ -55,27 +55,24 @@
         <!-- The video will appear here -->
         <div class="video-wrapper js-video-wrapper">
 		  <div class="video-responsive">
-			<video class="video js-video"  id="video-player" src="" muted="" style="display: none;">
-			  <!-- <source src=""> -->
+			<video class="video js-video" src="/home/ztlevi/Dropbox/big_buck_bunny.mp4"
+                   id="video-player" controls>
+              <!-- <source src="/home/ztlevi/Dropbox/8PF6005U.mp4" type="video/mp4"> -->
 			  Your browser does not support HTML5 video.
 			</video>
 
-			<canvas class="canvas js-canvas"></canvas>
+			<canvas class="canvas js-canvas" width="800" height="500"></canvas>
 
 			<div class="video-timeline js-timeline">
 			  <div class="video-timeline-passed js-timeline-passed" style="width: 9.09%;">
 			  </div>
 			</div>
-			<div class="video-timeline js-timeline">
-			  <div class="video-timeline-passed js-timeline-passed" style="width: 9.09%;">
-			  </div>
-			</div
 		  </div>
 	    </div>
       </section>
 
       <!-- Google Map -->
-      <section>
+      <section style="margin-top: 20px">
         <div id="map" style="width:80%;height:450px;margin:auto"></div>
       </section>
 
@@ -111,14 +108,11 @@
 
 	<script>
 	 var canvasVideo = new CanvasVideoPlayer({
-	   videoSelector: '.js-video',
-	   canvasSelector: '.js-canvas',
-	   timelineSelector: '.js-timeline',
-	   audio: false,
-       framesPerSecond: 30,
-       autoplay: false,
-       // IMPORTANT On iOS can't be used together with autoplay, autoplay will be disabled
-	   loop: false
+	     videoSelector: '.js-video',
+	     canvasSelector: '.js-canvas',
+	     timelineSelector: '.js-timeline',
+	     audio: false,
+         framesPerSecond: 30,
 	 });
 	</script>
 

@@ -84,7 +84,7 @@ const openVideoFromUser = exports.openVideoFromUser = () => {
 
     console.log("Server: user selected the video: " + path.win32.basename(videoFile))
 
-    const OBD_file = path.win32.dirname(videoFile) + '/../data/OBD.json'
+    const OBD_file = path.join(app.getAppPath(), 'app/data/OBD.json')
     if (!OBD_file) { return }
 
     OBD_data = JSON.parse(fs.readFileSync(OBD_file, 'utf8'))
