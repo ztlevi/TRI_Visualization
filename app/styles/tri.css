@@ -9,7 +9,7 @@ ul {
     width: 720px;
 }
 
-#centerVideo {
+.center-video {
     margin: auto; /* make em equal */
     width: 80%;
 }

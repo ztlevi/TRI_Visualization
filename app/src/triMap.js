@@ -6,6 +6,7 @@ class TriMap{
             zoom: 18,
             center: new google.maps.LatLng(Lat, Lng),
             mapTypeId: 'roadmap'
+
         })
 
         // test for Last Position Marker

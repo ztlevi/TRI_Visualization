@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="./styles/main.css">
     <link rel="stylesheet" href="./styles/tri.css">
     <link rel="stylesheet" href="./styles/bootstrap.min.css">
-    <link rel="stylesheet" href="./styles/video.css"/>
   </head>
 
   <body>
@@ -53,20 +52,15 @@
       <!-- Video -->
       <section>
         <!-- The video will appear here -->
-        <div class="video-wrapper js-video-wrapper">
-		  <div class="video-responsive">
-			<video class="video js-video" src="/home/ztlevi/Dropbox/big_buck_bunny.mp4"
-                   id="video-player" controls>
+        <div>
+		  <div class="center-video">
+			<canvas id="canvas" width="800" height="500"></canvas>
+
+			<video src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4"
+                   id="video-player" style="margin-top:30px;width:800px;height:0px"controls>
               <!-- <source src="/home/ztlevi/Dropbox/8PF6005U.mp4" type="video/mp4"> -->
 			  Your browser does not support HTML5 video.
 			</video>
-
-			<canvas class="canvas js-canvas" width="800" height="500"></canvas>
-
-			<div class="video-timeline js-timeline">
-			  <div class="video-timeline-passed js-timeline-passed" style="width: 9.09%;">
-			  </div>
-			</div>
 		  </div>
 	    </div>
       </section>
@@ -102,20 +96,7 @@
     <script type="text/javascript">
      var $ = require('jquery')
     </script>
-	<script src="./src/fastclick.js"></script>
 	<script src="./src/videoCanvas.js"></script>
-	<script src="./src/canvas-video-player.js"></script>
-
-	<script>
-	 var canvasVideo = new CanvasVideoPlayer({
-	     videoSelector: '.js-video',
-	     canvasSelector: '.js-canvas',
-	     timelineSelector: '.js-timeline',
-	     audio: false,
-         framesPerSecond: 30,
-	 });
-	</script>
-
     <script>
      require('./renderer')
      require('./src/triMap')

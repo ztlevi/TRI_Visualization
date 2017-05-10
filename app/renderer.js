@@ -11,6 +11,8 @@ const videoPlayer = document.querySelector('#video-player')
 
 
 let triMapper = null
+let current_data = null
+let current_shape_points_array = null
 
 // update the link section highlight
 const updateLinkPlot = (map, shape_points) => {
@@ -43,6 +45,8 @@ ipcRenderer.on('update-gps', (event, currentLat, currentLng) => {
 ipcRenderer.on('update-link', (event, shape_points_array, data) => {
     console.log("event: update-link")
     triMapper.renderPolyline(shape_points_array, data)
+    current_shape_points_array = shape_points_array
+    current_data = data
     //triMapper.updateLinkPlot(shape_points_array, data)
 })
 
@@ -50,7 +54,7 @@ ipcRenderer.on('opened-video', (event, videoFile) => {
     console.log("event: opened-video")
     videoPlayer.src = videoFile 
     $("#videoPath").text(videoFile.toString())
-    // videoPlayer.play()
+    videoPlayer.play()
 })
 
 videoPlayer.addEventListener('timeupdate', () => {
@@ -58,3 +62,7 @@ videoPlayer.addEventListener('timeupdate', () => {
     $("#currentTime").text(videoPlayer.currentTime)
     mainProcess.updateMap(videoPlayer.currentTime)
 })
+
+video = document.getElementById("video-player");
+canvas = document.getElementById("canvas");
+fc = new frameConverter(video,canvas,current_data,current_shape_points_array);
