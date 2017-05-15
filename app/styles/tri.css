@@ -13,3 +13,7 @@ ul {
     margin: auto; /* make em equal */
     width: 80%;
 }
+
+#video-player {
+    display: none;
+}

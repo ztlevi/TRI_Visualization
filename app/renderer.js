@@ -13,9 +13,12 @@ let triMapper = null
 let current_data = null
 let current_shape_points_array = null
 
-let video = document.getElementById("video-player")
-let canvas = document.getElementById("canvas")
-let fc = new frameConverter(video, canvas, current_data,current_shape_points_array)
+const video = document.getElementById("video-player")
+const canvas = document.getElementById("video-canvas")
+
+let context = null
+
+// let fc = new frameConverter(video, canvas, current_data,current_shape_points_array)
 
 // update the link section highlight
 const updateLinkPlot = (map, shape_points) => {
@@ -31,11 +34,6 @@ ipcRenderer.on('init', (event) => {
     let isl_longi = -83.233371
 
     triMapper = new TriMap(isl_lati, isl_longi, mapDisplay)
-    // let shape_points = []
-    // shape_points[0] = "42.2662388 -83.2381405"
-    // shape_points[1] = "42.2661476 -83.2410319"
-    // console.log(shape_points)
-    // triMapper.updateLinkPlot(shape_points)
 })
 
 // Listen to the update-gps signal
@@ -60,6 +58,12 @@ ipcRenderer.on('opened-video', (event, videoFile) => {
     videoPlayer.play()
 })
 
+// grab each frame
+videoPlayer.addEventListener('play', () => {
+    if (videoPlayer.paused || videoPlayer.ended) return false
+    context = canvas.msGetInputContext('2d')
+})
+
 videoPlayer.addEventListener('timeupdate', () => {
     console.log("event: video-player -> ontimeupdate\n" + "currentTime: " + videoPlayer.currentTime)
     $("#currentTime").text(videoPlayer.currentTime)
@@ -67,4 +71,8 @@ videoPlayer.addEventListener('timeupdate', () => {
     mainProcess.updateSegInfo(videoPlayer.currentTime)
     // update map information
     mainProcess.updateMap(videoPlayer.currentTime)
+})
+
+ipcRender.on('draw_seg_info', (event, currentSegInfo) => {
+
 })

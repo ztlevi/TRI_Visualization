@@ -197,10 +197,10 @@ const updateSegInfo = exports.updateSegInfo = (reqTimeStamp) => {
         currentSeg = infras_seg_result[currentSeg_index]
         console.log("enter into a new road_segmentation: " + currentSeg_index)
         console.log("segment infrastructure type: " + str(currentSeg_index.infras_type))
-        
-        // draw text on the graph
     }
     else {
         console.log("stay in the same road_segmentation.")
     }
+    // draw text on the graph
+    mainWindow.webContents.send('draw_seg_info', currentSeg)
 }
