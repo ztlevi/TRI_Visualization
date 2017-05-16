@@ -29,7 +29,7 @@
     <!-- Header -->
     <header class="w3-display-container w3-content w3-wide"
             style="max-width:1500px;" id="home">
-      <img class="w3-image" src="./img/tri_header.jpg" alt="Architecture"
+      <img class="w3-image" src="./imgs/tri_header.jpg" alt="Architecture"
            width="1500" height="800">
       <div class="w3-display-middle w3-margin-top w3-center">
         <h1 class="w3-xxlarge w3-text-white">
@@ -55,11 +55,37 @@
         <div>
 		  <div class="center-video">
 			<canvas id="video-canvas" width="800" height="500"></canvas>
+      <menu id="video-controller">
+        <button>|&lt;</button>
+        <button>&lt;&lt;</button>
+        <button>||</button>
+        <button>&gt;</button>
+        <button>&gt;&gt;</button>
+        <button>Framed</button>
+      </menu>
+            
+      <label>
+        Composition:
+        <select id='c_mode_selector'>
+          <option>copy</option>
+          <option>destination-atop</option>
+          <option>destination-in</option>
+          <option>destination-out</option>
+          <option>destination-over</option>
+          <option>source-atop</option>
+          <option>source-in</option>
+          <option>source-out</option>
+          <option selected>source-over</option>
+          <option>lighter</option>
+          <option>xor</option>
+        </select>
+      </label>
 
 			<video src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4"
-                   id="video-player" style="margin-top:30px;width:800px;height:0px"controls>
+                   id="video-player" style="margin-top:30px;width:800px;height:0px" controls>
               <!-- <source src="/home/ztlevi/Dropbox/8PF6005U.mp4" type="video/mp4"> -->
 			  Your browser does not support HTML5 video.
+        <img src="imgs/laughing_man.png">
 			</video>
 		  </div>
 	    </div>
@@ -96,7 +122,6 @@
     <script type="text/javascript">
      var $ = require('jquery')
     </script>
-	<script src="./src/videoCanvas.js"></script>
     <script>
      require('./renderer')
      require('./src/triMap')

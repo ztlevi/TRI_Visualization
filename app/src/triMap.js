@@ -1,7 +1,7 @@
 class TriMap{
     constructor(Lat, Lng, mapDisplay){
         this.currentPosition = new google.maps.LatLng(Lat, Lng)
-        this.markerImage = './img/marker.png'
+        this.markerImage = './imgs/marker.png'
         this.map = new google.maps.Map(mapDisplay, {
             zoom: 18,
             center: new google.maps.LatLng(Lat, Lng),

@@ -23,7 +23,7 @@ let lastReqTimestamp = 0.00
 
 let currentLink = 0
 
-let currentSeg = null
+let currentSeg = null   // global variable in the server to store the information of current road segmentation
 let currentSeg_index = 0
 
 let videoFile = null
@@ -196,11 +196,10 @@ const updateSegInfo = exports.updateSegInfo = (reqTimeStamp) => {
         currentSeg_index += 1
         currentSeg = infras_seg_result[currentSeg_index]
         console.log("enter into a new road_segmentation: " + currentSeg_index)
-        console.log("segment infrastructure type: " + str(currentSeg_index.infras_type))
+        console.log("segment infrastructure type: " + currentSeg.infras_type.toString())
     }
     else {
         console.log("stay in the same road_segmentation.")
     }
-    // draw text on the graph
     mainWindow.webContents.send('draw_seg_info', currentSeg)
 }
