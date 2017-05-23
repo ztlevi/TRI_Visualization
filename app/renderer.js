@@ -73,15 +73,35 @@ const drawFrame = () => {
     context.drawImage(videoPlayer, 0, 0, 720, 405)
     if (framed && null !== current_segment_info) {
         // draw some text
-        context.font="20px Verdana"
+        context.font="15px Verdana"
         // Create gradient
-        let gradient=context.createLinearGradient(0, 0, videoCanvas.width, 0)
-        gradient.addColorStop("0","magenta")
-        gradient.addColorStop("0.5","blue")
-        gradient.addColorStop("1.0","red")
-        // Fill with gradient
-        context.fillStyle = gradient;
-        context.fillText("road infra level: " + current_segment_info.infras_type.toString(), 500, 270)
+        // let gradient=context.createLinearGradient(0, 0, videoCanvas.width, 0)
+        // gradient.addColorStop("0","magenta")
+        // gradient.addColorStop("0.5","blue")
+        // gradient.addColorStop("1.0","red")
+        // // Fill with gradient
+        // context.fillStyle = gradient;
+        context.fillStyle = "#FFFFFF"
+        // context.fillText(
+        //     "road infra level: " + current_segment_info.infras_type.toString() +
+        //         "\n time: " + current_segment_info.start_time,
+        //     500, 270, 100)
+        var x = 530
+        var y = 170
+        var lineheight = 15;
+
+        linkArrText = ""
+        for(var i in current_segment_info.link_array)
+            linkArrText += current_segment_info.link_array[i].linkID + "\n"
+        
+        let text =  "Road infra level: " + current_segment_info.infras_type.toString() +
+            "\nStart time: " + current_segment_info.start_time +
+            "\nEnd time: " + current_segment_info.end_time +
+            "\nLink array:\n" + linkArrText
+        
+        var lines = text.split('\n');
+        for (var i = 0; i<lines.length; i++)
+            context.fillText(lines[i], x, y + (i*lineheight) );
     }
     requestAnimationFrame(drawFrame)    // recursive call this function
     return true
