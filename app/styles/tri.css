@@ -4,17 +4,6 @@ ul {
     padding: 0;
 }
 
-#map {
-    height: 480px;
-    width: 720px;
-}
-
-.center-video {
-    margin: auto; /* make em equal */
-    width: 80%;
-}
-
-
 #video-player {
     display: none;
 }

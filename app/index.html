@@ -51,55 +51,51 @@
       </div>
 
       <!-- Video -->
-      <section>
+      <section class="col-md-6">
         <!-- The video will appear here -->
-        <div>
-		  <div class="center-video">
-			<canvas id="video-canvas" width="800" height="500"></canvas>
-      <menu id="video-controller">
-        <button>|&lt;</button>
-        <button>&lt;&lt;</button>
-        <button>||</button>
-        <button>&gt;</button>
-        <button>&gt;&gt;</button>
-        <button>Framed</button>
-      </menu>
-            
-      <label>
-        Composition:
-        <select id='c_mode_selector'>
-          <option>copy</option>
-          <option>destination-atop</option>
-          <option>destination-in</option>
-          <option>destination-out</option>
-          <option>destination-over</option>
-          <option>source-atop</option>
-          <option>source-in</option>
-          <option>source-out</option>
-          <option selected>source-over</option>
-          <option>lighter</option>
-          <option>xor</option>
-        </select>
-      </label>
+		<canvas id="video-canvas" width="720" height="405"></canvas>
+        <menu id="video-controller">
+          <button class="w3-btn w3-section">|&lt;</button>
+          <button class="w3-btn w3-section">&lt;&lt;</button>
+          <button class="w3-btn w3-section">||</button>
+          <button class="w3-btn w3-section">&gt;</button>
+          <button class="w3-btn w3-section">&gt;&gt;</button>
+          <button class="w3-btn w3-section">Framed</button>
+        </menu>
+        
+        <label>
+          Composition:
+          <select id='c_mode_selector'>
+            <option>copy</option>
+            <option>destination-atop</option>
+            <option>destination-in</option>
+            <option>destination-out</option>
+            <option>destination-over</option>
+            <option>source-atop</option>
+            <option>source-in</option>
+            <option>source-out</option>
+            <option selected>source-over</option>
+            <option>lighter</option>
+            <option>xor</option>
+          </select>
+        </label>
 
-			<video src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4"
-                   id="video-player" style="margin-top:30px;width:800px;height:0px" controls>
-              <!-- <source src="/home/ztlevi/Dropbox/8PF6005U.mp4" type="video/mp4"> -->
-			  Your browser does not support HTML5 video.
-        <img src="imgs/laughing_man.png">
-			</video>
-		  </div>
-	    </div>
+		<video src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4"
+               id="video-player" style="margin-top:30px;width:800px;height:0px" controls>
+          <!-- <source src="/home/ztlevi/Dropbox/8PF6005U.mp4" type="video/mp4"> -->
+		  Your browser does not support HTML5 video.
+          <img src="imgs/laughing_man.png">
+		</video>
       </section>
 
       <!-- Google Map -->
-      <section style="margin-top: 20px">
-        <div id="map" style="width:80%;height:450px;margin:auto"></div>
+      <section class="col-md-6">
+        <div id="map" style="width:90%;height:405px;margin:auto"></div>
       </section>
 
       <!-- About Section -->
       <div class="w3-container w3-padding-32" id="about">
-        <h3 <class></class>rder-bottom w3-border-light-grey w3-padding-12">About</h3>
+        <h3 class="rder-bottom w3-border-light-grey w3-padding-12">About</h3>
         <p>TRI project introductions and members description.</p>
       </div>
 
