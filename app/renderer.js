@@ -9,7 +9,7 @@ const TriMap = require('./src/triMap.js')
 const mapDisplay = document.querySelector('#map')
 const videoPlayer = document.querySelector('#video-player')
 const videoCanvas = document.querySelector('#video-canvas')
-const videoController = document.querySelector('#video-controller') 
+const videoController = document.querySelector('#video-controller')
 // select the canvas composition modes
 const cModeSelector = document.querySelector('#c_model_selector')
 
@@ -58,9 +58,9 @@ ipcRenderer.on('update-link', (event, shape_points_array, data) => {
 ipcRenderer.on('opened-video', (event, videoFile) => {
     console.log("event: opened-video")
     videoPlayer.src = videoFile
-    $("#videoPath").text(videoFile.toString())  // use jQuery to show video name
+    $("#videoPath").text(videoFile.toString()) // use jQuery to show video name
     context = videoCanvas.getContext('2d')
-    videoPlayer.addEventListener('play', drawFrame)     // bind the video paly event to the frame drawing function
+    videoPlayer.addEventListener('play', drawFrame) // bind the video paly event to the frame drawing function
     videoPlayer.play()
 })
 
@@ -68,12 +68,12 @@ ipcRenderer.on('opened-video', (event, videoFile) => {
 const drawFrame = () => {
     if (videoPlayer.paused || videoPlayer.ended) return false
     // update segmentation information
-    context.clearRect(0,0,720,480)
+    context.clearRect(0, 0, 720, 480)
     context.globalCompositeOperation = c_mode
     context.drawImage(videoPlayer, 0, 0, 720, 405)
     if (framed && null !== current_segment_info) {
         // draw some text
-        context.font="15px Verdana"
+        context.font = "15px Verdana"
         // Create gradient
         // let gradient=context.createLinearGradient(0, 0, videoCanvas.width, 0)
         // gradient.addColorStop("0","magenta")
@@ -91,19 +91,19 @@ const drawFrame = () => {
         var lineheight = 15;
 
         linkArrText = ""
-        for(var i in current_segment_info.link_array)
+        for (var i in current_segment_info.link_array)
             linkArrText += current_segment_info.link_array[i].linkID + "\n"
-        
-        let text =  "Road infra level: " + current_segment_info.infras_type.toString() +
+
+        let text = "Road infra level: " + current_segment_info.infras_type.toString() +
             "\nStart time: " + current_segment_info.start_time +
             "\nEnd time: " + current_segment_info.end_time +
             "\nLink array:\n" + linkArrText
-        
+
         var lines = text.split('\n');
-        for (var i = 0; i<lines.length; i++)
-            context.fillText(lines[i], x, y + (i*lineheight) );
+        for (var i = 0; i < lines.length; i++)
+            context.fillText(lines[i], x, y + (i * lineheight));
     }
-    requestAnimationFrame(drawFrame)    // recursive call this function
+    requestAnimationFrame(drawFrame) // recursive call this function
     return true
 }
 
