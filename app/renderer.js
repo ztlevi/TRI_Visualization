@@ -68,29 +68,26 @@ ipcRenderer.on('opened-video', (event, videoFile) => {
 const drawFrame = () => {
     if (videoPlayer.paused || videoPlayer.ended) return false
     // update segmentation information
-    context.clearRect(0, 0, 720, 480)
+    let map_width = $("#map").width()
+    $("#video-canvas").attr("width", map_width)
+    $("#video-canvas").attr("height", map_width*0.56)
+    let canvas_width = $("#video-canvas").width()
+    let canvas_height = $("#video-canvas").height()
+
+    let font_size = Math.round(map_width/50)
+    context.clearRect(0, 0, canvas_width, canvas_height)
     context.globalCompositeOperation = c_mode
-    context.drawImage(videoPlayer, 0, 0, 720, 405)
+    context.drawImage(videoPlayer, 0, 0, videoPlayer.videoWidth, videoPlayer.videoHeight, 0, 0, canvas_width, canvas_height)
     if (framed && null !== current_segment_info) {
         // draw some text
-        context.font = "15px Verdana"
-        // Create gradient
-        // let gradient=context.createLinearGradient(0, 0, videoCanvas.width, 0)
-        // gradient.addColorStop("0","magenta")
-        // gradient.addColorStop("0.5","blue")
-        // gradient.addColorStop("1.0","red")
-        // // Fill with gradient
-        // context.fillStyle = gradient;
+        context.font = font_size + "px Verdana"
         context.fillStyle = "#FFFFFF"
-        // context.fillText(
-        //     "road infra level: " + current_segment_info.infras_type.toString() +
-        //         "\n time: " + current_segment_info.start_time,
-        //     500, 270, 100)
-        var x = 530
-        var y = 170
-        var lineheight = 15;
 
-        linkArrText = ""
+        // set the absolute position of the info 
+        var x = 0.72*canvas_width
+        var y = 0.40*canvas_height
+        var lineheight = font_size;
+        var linkArrText = ""
         for (var i in current_segment_info.link_array)
             linkArrText += current_segment_info.link_array[i].linkID + "\n"
 

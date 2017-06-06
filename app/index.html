@@ -15,8 +15,8 @@
     <div class="w3-top">
         <div class="w3-bar w3-white w3-wide w3-padding-8 w3-card-2">
             <a href="#home" class="w3-margin-left w3-bar-item w3-button">
-          <b>TRI</b> Demo
-        </a>
+                <b>TRI</b> Demo
+            </a>
             <!-- Float links to the right. Hide them on small screens -->
             <div class="w3-right w3-hide-small">
                 <a href="#projects" class="w3-bar-item w3-button">Projects</a>
@@ -31,9 +31,9 @@
         <div class="w3-display-middle w3-margin-top w3-center">
             <h1 class="w3-xxlarge w3-text-white">
                 <a id="startDemo" href="#projects" style="text-decoration:none" onclick="mainProcess.openVideoFromUser()">
-            <span class="w3-padding w3-black w3-opacity-min"><b>Open</b></span>
-            <span class="w3-hide-small w3-text-light-grey">Video</span>
-          </a>
+                    <span class="w3-padding w3-black w3-opacity-min"><b>Open</b></span>
+                    <span class="w3-hide-small w3-text-light-grey">Video</span>
+                </a>
             </h1>
         </div>
     </header>
@@ -47,46 +47,45 @@
         </div>
 
         <!-- Video -->
-        <section class="col-md-6">
+        <div>
             <!-- The video will appear here -->
-            <canvas id="video-canvas" width="720" height="405"></canvas>
-            <menu id="video-controller">
-                <button class="w3-btn w3-section">|&lt;</button>
-                <button class="w3-btn w3-section">&lt;&lt;</button>
-                <button class="w3-btn w3-section">||</button>
-                <button class="w3-btn w3-section">&gt;</button>
-                <button class="w3-btn w3-section">&gt;&gt;</button>
-                <button class="w3-btn w3-section">Framed</button>
-            </menu>
+            <div class="row">
+                <div class="col-md-6">
+                    <canvas id="video-canvas"></canvas>
+                    <video src="" id="video-player" style="margin-top:30px;width:800px;height:0px" controls>
+                    </video>
+                </div>
+                <!-- Google Map -->
+                <div class="col-md-6">
+                    <div id="map" style="padding-top: 56%;height:100%"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="video-controller" style="margin:auto" class="col-md-6 text-center">
+                    <button class="w3-btn w3-section">|&lt;</button>
+                    <button class="w3-btn w3-section">&lt;&lt;</button>
+                    <button class="w3-btn w3-section">||</button>
+                    <button class="w3-btn w3-section">&gt;</button>
+                    <button class="w3-btn w3-section">&gt;&gt;</button>
+                    <button class="w3-btn w3-section">Framed</button>
+                </div>
+            </div>
+            <label>Composition:</label>
+            <select id="c_mode_selector">
+                <option>copy</option>
+                <option>destination-atop</option>
+                <option>destination-in</option>
+                <option>destination-out</option>
+                <option>destination-over</option>
+                <option>source-atop</option>
+                <option>source-in</option>
+                <option>source-out</option>
+                <option selected>source-over</option>
+                <option>lighter</option>
+                <option>xor</option>
+            </select>
 
-            <label>
-          Composition:
-          <select id='c_mode_selector'>
-            <option>copy</option>
-            <option>destination-atop</option>
-            <option>destination-in</option>
-            <option>destination-out</option>
-            <option>destination-over</option>
-            <option>source-atop</option>
-            <option>source-in</option>
-            <option>source-out</option>
-            <option selected>source-over</option>
-            <option>lighter</option>
-            <option>xor</option>
-          </select>
-        </label>
-
-            <video src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" id="video-player" style="margin-top:30px;width:800px;height:0px" controls>
-          <!-- <source src="/home/ztlevi/Dropbox/8PF6005U.mp4" type="video/mp4"> -->
-		  Your browser does not support HTML5 video.
-          <img src="imgs/laughing_man.png">
-		</video>
-        </section>
-
-        <!-- Google Map -->
-        <section class="col-md-6">
-            <div id="map" style="width:90%;height:405px;margin:auto"></div>
-        </section>
+        </div>
 
         <!-- About Section -->
         <div class="w3-container w3-padding-32" id="about">
@@ -99,15 +98,15 @@
 
     <!-- Footer -->
     <footer>
-      <p style="text-align:center">
-        &copy; 2017 Toyota Research Institute & UM - Dearborn ISL</p>
+        <p style="text-align:center">
+            &copy; 2017 Toyota Research Institute & UM - Dearborn ISL</p>
     </footer>
     <script>
         var $ = require('jquery')
         require('./renderer')
         require('./src/triMap')
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKewL3hAp5w0t6sSNgUuEZr4WXGF_CdgE">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKewL3hAp5w0t6sSNgUuEZr4WXGF_CdgE ">
     </script>
 </body>
 
