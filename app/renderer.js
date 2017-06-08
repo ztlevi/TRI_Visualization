@@ -11,7 +11,7 @@ const videoPlayer = document.querySelector('#video-player')
 const videoCanvas = document.querySelector('#video-canvas')
 const videoController = document.querySelector('#video-controller')
 // select the canvas composition modes
-const cModeSelector = document.querySelector('#c_model_selector')
+const cModeSelector = 'source-over'
 
 let triMapper = null
 let current_data = null
@@ -91,10 +91,10 @@ const drawFrame = () => {
         for (var i in current_segment_info.link_array)
             linkArrText += current_segment_info.link_array[i].linkID + "\n"
 
-        let text = "Road infra level: " + current_segment_info.infras_type.toString() +
+        let text = "Road infras level: " + current_segment_info.infras_type.toString() +
             "\nStart time: " + current_segment_info.start_time +
-            "\nEnd time: " + current_segment_info.end_time +
-            "\nLink array:\n" + linkArrText
+            "\nEnd time: " + current_segment_info.end_time
+            // "\nLink array:\n" + linkArrText
 
         var lines = text.split('\n');
         for (var i = 0; i < lines.length; i++)
