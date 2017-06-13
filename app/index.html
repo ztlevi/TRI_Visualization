@@ -2,97 +2,134 @@
 <html>
 
 <head>
-    <title>TRI demo</title>
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="./styles/main.css">
-    <link rel="stylesheet" href="./styles/tri.css">
-    <link rel="stylesheet" href="./styles/bootstrap.min.css">
+  <title>TRI demo</title>
+  <meta name="viewport" content="initial-scale=1.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="./styles/main.css">
+  <link rel="stylesheet" href="./styles/tri.css">
+  <link rel="stylesheet" href="./styles/bootstrap.min.css">
 </head>
 
 <body>
-    <!-- Navbar (sit on top) -->
-    <div class="w3-top">
-        <div class="w3-bar w3-white w3-wide w3-padding-8 w3-card-2">
-            <a href="#home" class="w3-margin-left w3-bar-item w3-button">
+  <!-- Navbar (sit on top) -->
+  <div class="w3-top">
+    <div class="w3-bar w3-white w3-wide w3-padding-8 w3-card-2">
+      <a href="#home" class="w3-margin-left w3-bar-item w3-button">
                 <b>TRI</b> Demo
             </a>
-            <!-- Float links to the right. Hide them on small screens -->
-            <div class="w3-right w3-hide-small">
-                <a href="#projects" class="w3-bar-item w3-button">Projects</a>
-                <a href="#about" class="w3-bar-item w3-button">About</a>
-            </div>
-        </div>
+      <!-- Float links to the right. Hide them on small screens -->
+      <div class="w3-right w3-hide-small">
+        <a href="#projects" class="w3-bar-item w3-button">Projects</a>
+        <a href="#about" class="w3-bar-item w3-button">About</a>
+      </div>
     </div>
+  </div>
 
-    <!-- Header -->
-    <header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
-        <img class="w3-image" src="./imgs/tri_header.jpg" alt="Architecture" width="1500" height="800">
-        <div class="w3-display-middle w3-margin-top w3-center">
-            <h1 class="w3-xxlarge w3-text-white">
-                <a id="startDemo" href="#projects" style="text-decoration:none" onclick="mainProcess.openVideoFromUser()">
+  <!-- Header -->
+  <header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
+    <img class="w3-image" src="./imgs/tri_header.jpg" alt="Architecture" width="1500" height="800">
+    <div class="w3-display-middle w3-margin-top w3-center">
+      <h1 class="w3-xxlarge w3-text-white">
+        <a id="startDemo" href="#projects" style="text-decoration:none" onclick="mainProcess.openVideoFromUser()">
                     <span class="w3-padding w3-black w3-opacity-min"><b>Open</b></span>
                     <span class="w3-hide-small w3-text-light-grey">Video</span>
                 </a>
-            </h1>
-        </div>
-    </header>
+      </h1>
+    </div>
+  </header>
 
-    <!-- Page content -->
-    <div class="w3-content w3-padding" style="max-width:1564px">
+  <!-- Page content -->
+  <div class="w3-content w3-padding" style="max-width:1564px">
 
-        <!-- Project Section -->
-        <div class="w3-container w3-padding-32" id="projects">
-            <h3 class="w3-border-bottom w3-border-light-grey w3-padding-12">Projects</h3>
-        </div>
-
-        <!-- Video -->
-        <div>
-            <!-- The video will appear here -->
-            <div class="row">
-                <div class="col-md-6">
-                    <canvas id="video-canvas"></canvas>
-                    <video src="" id="video-player" style="margin-top:30px;width:800px;height:0px" controls>
-                    </video>
-                </div>
-                <!-- Google Map -->
-                <div class="col-md-6">
-                    <div id="map" style="padding-top: 56%;height:100%"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div id="video-controller" style="margin:auto" class="col-md-6 text-center">
-                    <button class="w3-btn w3-section">|&lt;</button>
-                    <button class="w3-btn w3-section">&lt;&lt;</button>
-                    <button class="w3-btn w3-section">||</button>
-                    <button class="w3-btn w3-section">&gt;</button>
-                    <button class="w3-btn w3-section">&gt;&gt;</button>
-                    <button class="w3-btn w3-section">Framed</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- About Section -->
-        <div class="w3-container w3-padding-32" id="about">
-            <h3 class="rder-bottom w3-border-light-grey w3-padding-12">About</h3>
-            <p>TRI project introductions and members description.</p>
-        </div>
-
-        <!-- End page content -->
+    <!-- Project Section -->
+    <div class="w3-container w3-padding-32" id="projects">
+      <h3 class="w3-border-bottom w3-border-light-grey w3-padding-12">Projects</h3>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <p style="text-align:center">
-            &copy; 2017 Toyota Research Institute & UM - Dearborn ISL</p>
-    </footer>
-    <script>
-        var $ = require('jquery')
-        require('./renderer')
-        require('./src/triMap')
-    </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKewL3hAp5w0t6sSNgUuEZr4WXGF_CdgE ">
-    </script>
+    <!-- Video -->
+    <div>
+      <!-- The video will appear here -->
+      <div class="row">
+
+        <!-- Video Canvas -->
+        <div class="col-md-6">
+          <canvas id="video-canvas"></canvas>
+          <video src="" id="video-player" style="margin-top:30px;width:800px;height:0px" controls>
+                    </video>
+
+          <!-- Video Canvas Control -->
+          <div id="video-controller" style="margin:auto" class="text-center">
+            <button class="w3-btn w3-section">|&lt;</button>
+            <button class="w3-btn w3-section">&lt;&lt;</button>
+            <button class="w3-btn w3-section">||</button>
+            <button class="w3-btn w3-section">&gt;</button>
+            <button class="w3-btn w3-section">&gt;&gt;</button>
+            <button class="w3-btn w3-section">Framed</button>
+          </div>
+        </div>
+
+        <!-- Google Map -->
+        <div class="col-md-6">
+          <div id="map" style="padding-top: 56%;height:100%"></div>
+        </div>
+      </div>
+
+      <!-- Other driving info here -->
+      <div class="row">
+        <div class="col-md-6">
+          <div id="linechart_1" style="height:400px"></div>
+        </div>
+        <div class="col-md-6">
+          <div id="linechart_2" style="height:400px"></div>
+          <ul id="info2">
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6" id="info1">
+          <ul>
+            <li><b>Video Path: </b><span id="videoPath"></span></li <li><b>Current Time: </b><span id="currentTime"></span></li>
+            <!-- <li><b>Update Interval: </b><span id="updateInterval"></span></li> -->
+            <li><b>Link_ID: </b><span id="link_ID"></span></li>
+            <li><b>Latitude: </b><span id="lat"></span></li>
+            <li><b>Longtitude: </b><span id="lng"></span></li>
+            <li><b>Shape Points Array: </b>
+              <div style="height:150px;overflow-y:scroll">
+                <ol id="shape_points_array"></ol>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="w3-container w3-padding-32" id="about">
+      <h3 class="rder-bottom w3-border-light-grey w3-padding-12">About</h3>
+      <p>TRI project introductions and members description.</p>
+    </div>
+
+    <!-- End page content -->
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p style="text-align:center">
+      &copy; 2017 Toyota Research Institute & UM - Dearborn ISL</p>
+  </footer>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    var $ = require('jquery')
+    require('./renderer')
+    require('./src/triMap')
+
+    // initialize canvas size
+    let map_width = $("#map").width()
+    $("#video-canvas").attr("width", map_width)
+    $("#video-canvas").attr("height", map_width * 0.56)
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKewL3hAp5w0t6sSNgUuEZr4WXGF_CdgE ">
+  </script>
 </body>
 
 </html>

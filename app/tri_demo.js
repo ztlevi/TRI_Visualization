@@ -9,7 +9,6 @@ const fs = require('fs')
 const path = require('path')
 
 const sqlite3 = require('sqlite3').verbose()
-
 const applicationMenu = require('./application-menu')
 
 let mainWindow = null
@@ -23,7 +22,7 @@ let lastReqTimestamp = 0.00
 
 let currentLink = 0
 
-let currentSeg = null   // global variable in the server to store the information of current road segmentation
+let currentSeg = null // global variable in the server to store the information of current road segmentation
 let currentSeg_index = 0
 
 let videoFile = null
@@ -34,12 +33,35 @@ let infras_seg_result = null
 let dbFile = path.join(app.getAppPath(), 'app/db/link_static_info.db')
 const db = new sqlite3.Database(dbFile)
 
+var parse = require('csv-parse');
+let csvHeader = null
+let isCSVHeader = true
+let realtimeInfo = []
+
+fs.createReadStream("./app/data/Synchronized_data_Yuanma_Trip6.csv")
+    .pipe(parse({delimiter: ','}))
+    .on('data', function(csvrow) {
+        if (isCSVHeader) {
+            csvHeader = csvrow
+            isCSVHeader = false
+        }
+        else if (Number.isInteger(parseFloat(csvrow[0]))) {
+            realtimeInfo.push(csvrow)
+        }
+    })
+    .on('end',function() {
+      //do something wiht csvData
+      console.log("Successfully load CSV data!")
+    })
+
 const createWindow = () => {
     // Create browser window
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600
     })
+
+    mainWindow.maximize()
 
     mainWindow.loadURL('file://' + __dirname + '/index.html')
 
@@ -77,14 +99,21 @@ const openVideoFromUser = exports.openVideoFromUser = () => {
 
     const videoFiles = dialog.showOpenDialog({
         properties: ['openFile'],
-        filters: [
-            { name: 'MPEG 4', extensions: ['mp4'] },
-            { name: 'AVI', extensions: ['avi'] }
+        filters: [{
+                name: 'MPEG 4',
+                extensions: ['mp4']
+            },
+            {
+                name: 'AVI',
+                extensions: ['avi']
+            }
         ]
     })
-    
-    if (!videoFiles) { return }
-    
+
+    if (!videoFiles) {
+        return
+    }
+
     videoFile = videoFiles[0]
     console.log(videoFile)
 
@@ -92,20 +121,19 @@ const openVideoFromUser = exports.openVideoFromUser = () => {
 
     const OBD_file = path.join(app.getAppPath(), 'app/data/OBD.json')
     const infras_seg_result_file = path.join(app.getAppPath(),
-                                            'app/data/infras_segment_result.json')
+        'app/data/infras_segment_result.json')
 
     try {
         OBD_data = JSON.parse(fs.readFileSync(OBD_file, 'utf8'))
         infras_seg_result = JSON.parse(fs.readFileSync(infras_seg_result_file, 'utf8'))
-    }
-    catch(err) {
+    } catch (err) {
         console.log(err.message)
     }
 
     currentLat = OBD_data[0].lati
     currentLng = OBD_data[0].longi
     console.log("Start GPS position:\t latittude: " + currentLat + "longitude: " + currentLng)
-    
+
     // store the status of the current segment
     currentSeg = infras_seg_result[currentSeg_index]
 
@@ -120,25 +148,25 @@ const updateCurrentGPS = (reqTimeStamp) => {
     // update the driver's current location on the google map
     let data_index = Math.floor(reqTimeStamp)
     mainWindow.webContents.send('update-gps', OBD_data[data_index].lati,
-                                OBD_data[data_index].longi)
+        OBD_data[data_index].longi)
 }
 
 // query shape points of a given link and sene the update-link signal /////////
-const queryShapePoints =  (data) => {
-    db.all("SELECT shape_points from link_to_shape_points where link_ID="
-           + data.link_ID, (err, row) => {
-               let shape_points_text = row[0].shape_points
-               let shape_points_array = shape_points_text.split(',')
-               console.log("link ID: " + data.link_ID)
-               console.log("Shape Point Array: " + shape_points_array)
+const queryShapePoints = (data) => {
+    db.all("SELECT shape_points from link_to_shape_points where link_ID=" +
+        data.link_ID, (err, row) => {
+            let shape_points_text = row[0].shape_points
+            let shape_points_array = shape_points_text.split(',')
+            console.log("link ID: " + data.link_ID)
+            console.log("Shape Point Array: " + shape_points_array)
 
-               // update Links
-               mainWindow.webContents.send('update-link', shape_points_array, data)
-           }) 
+            // update Links
+            mainWindow.webContents.send('update-link', shape_points_array, data)
+        })
 }
 
 // Get the current Link ///////////////////////////////////////////////////////
-const updateCurrentLink  = (reqTimeStamp) => {
+const updateCurrentLink = (reqTimeStamp) => {
     let data_index = Math.floor(reqTimeStamp)
 
     let data = {}
@@ -157,7 +185,7 @@ const updateCurrentLink  = (reqTimeStamp) => {
         queryShapePoints(data)
         console.log("Plot directions.\n Server: requset time: " + reqTimeStamp)
     }
-} 
+}
 
 // Update the lastReqTimestamp, currentLat and currentLng /////////////////////
 const updateLocalVariables = (reqTimeStamp) => {
@@ -169,8 +197,15 @@ const updateLocalVariables = (reqTimeStamp) => {
     lastReqTimestamp = reqTimeStamp
 
     console.log("Update Local Variables.\n Server: requset time: " + reqTimeStamp +
-                "\t current GPS: latitude " + currentLat + "\t longitude: " +
-                currentLng)
+        "\t current GPS: latitude " + currentLat + "\t longitude: " +
+        currentLng)
+}
+
+const updateRealtimeInfo = (reqTimeStamp) => {
+    let data_index = Math.floor(reqTimeStamp)
+    let data_index_start = data_index - 60 > 0 ? data_index - 60 : 0
+    rinfo = realtimeInfo.slice(data_index_start, data_index)
+    mainWindow.webContents.send('update-info', csvHeader, rinfo)
 }
 
 // Update Map /////////////////////////////////////////////////////////////////
@@ -182,8 +217,9 @@ const updateMap = exports.updateMap = (reqTimeStamp) => {
     if (realInterval >= interval) {
         updateCurrentGPS(reqTimeStamp)
         updateCurrentLink(reqTimeStamp)
-        //
         updateLocalVariables(reqTimeStamp)
+        if (Math.floor(reqTimeStamp) % 5 == 0)
+            updateRealtimeInfo(reqTimeStamp)
     }
 }
 
@@ -197,8 +233,7 @@ const updateSegInfo = exports.updateSegInfo = (reqTimeStamp) => {
         currentSeg = infras_seg_result[currentSeg_index]
         console.log("enter into a new road_segmentation: " + currentSeg_index)
         console.log("segment infrastructure type: " + currentSeg.infras_type.toString())
-    }
-    else {
+    } else {
         console.log("stay in the same road_segmentation.")
     }
     mainWindow.webContents.send('draw_seg_info', currentSeg)

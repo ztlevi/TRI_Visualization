@@ -4,6 +4,7 @@ app/video/*
 app/TAGS
 app/matlab/output/*
 *.log
+package-lock.json
 
 .DS_Store
 

@@ -55,6 +55,77 @@ ipcRenderer.on('update-link', (event, shape_points_array, data) => {
     current_data = data
 })
 
+google.charts.load('current', {
+    'packages': ['line']
+})
+// google.charts.setOnLoadCallback(drawChart);
+
+function drawChart(csvHeader, realtimeInfo) {
+    var data1 = new google.visualization.DataTable();
+    var data2 = new google.visualization.DataTable();
+
+    // add time column for x-axis
+    data1.addColumn('number', csvHeader[0])
+    data2.addColumn('number', csvHeader[0])
+    for (let i = 2; i < 3; i++) {
+        data1.addColumn('number', csvHeader[i])
+    }
+
+    for (let i = 3; i < 6; i++) {
+        data2.addColumn('number', csvHeader[i])
+    }
+
+    let rows1 = [], rows2 = []
+    for (let i = 0; i < realtimeInfo.length; i++) {
+        let row1 = [], row2 = []
+        row1.push(parseFloat(realtimeInfo[i][0]))
+        row2.push(parseFloat(realtimeInfo[i][0]))
+        for (let j = 2; j < 3; j++) {
+            row1.push(parseFloat(realtimeInfo[i][j]))
+        }
+        for (let j = 3; j < 6; j++) {
+            row2.push(parseFloat(realtimeInfo[i][j]))
+        }
+        rows1.push(row1)
+        rows2.push(row2)
+    }
+    data1.addRows(rows1)
+    data2.addRows(rows2)
+
+    let linechart_width = $("#linechart_1").width()
+    let linechart_height = $("#linechart_1").height()
+    let options1 = {
+        chart: {
+            title: 'Data Visualization 1',
+            subtitle: 'put subtitle here'
+        },
+        width: linechart_width,
+        height: linechart_height
+    }
+    let options2 = {
+        chart: {
+            title: 'Data Visualization 2',
+            subtitle: 'put subtitle here'
+        },
+        width: linechart_width,
+        height: linechart_height
+    };
+    var chart1 = new google.charts.Line(document.getElementById('linechart_1'));
+    var chart2 = new google.charts.Line(document.getElementById('linechart_2'));
+    chart1.draw(data1, google.charts.Line.convertOptions(options1));
+    chart2.draw(data2, google.charts.Line.convertOptions(options2));
+}
+
+ipcRenderer.on('update-info', (event, csvHeader, realtimeInfo) => {
+    console.log("event: update-info")
+    // text info //////////////////////////////////////////////////////////////
+    // $("#info2").empty()
+    // for (let i = 0; i < csvHeader.length; i++) {
+    //     $("#info2").append("<li><b>" + csvHeader[i] + "</b>: " + realtimeInfo[i] + "<li>")
+    // }
+    drawChart(csvHeader, realtimeInfo)
+})
+
 ipcRenderer.on('opened-video', (event, videoFile) => {
     console.log("event: opened-video")
     videoPlayer.src = videoFile
@@ -70,11 +141,11 @@ const drawFrame = () => {
     // update segmentation information
     let map_width = $("#map").width()
     $("#video-canvas").attr("width", map_width)
-    $("#video-canvas").attr("height", map_width*0.56)
+    $("#video-canvas").attr("height", map_width * 0.56)
     let canvas_width = $("#video-canvas").width()
     let canvas_height = $("#video-canvas").height()
 
-    let font_size = Math.round(map_width/50)
+    let font_size = Math.round(map_width / 50)
     context.clearRect(0, 0, canvas_width, canvas_height)
     context.globalCompositeOperation = c_mode
     context.drawImage(videoPlayer, 0, 0, videoPlayer.videoWidth, videoPlayer.videoHeight, 0, 0, canvas_width, canvas_height)
@@ -84,8 +155,8 @@ const drawFrame = () => {
         context.fillStyle = "#FFFFFF"
 
         // set the absolute position of the info 
-        var x = 0.72*canvas_width
-        var y = 0.40*canvas_height
+        var x = 0.72 * canvas_width
+        var y = 0.40 * canvas_height
         var lineheight = font_size;
         var linkArrText = ""
         for (var i in current_segment_info.link_array)
@@ -94,7 +165,7 @@ const drawFrame = () => {
         let text = "Road infras level: " + current_segment_info.infras_type.toString() +
             "\nStart time: " + current_segment_info.start_time +
             "\nEnd time: " + current_segment_info.end_time
-            // "\nLink array:\n" + linkArrText
+        // "\nLink array:\n" + linkArrText
 
         var lines = text.split('\n');
         for (var i = 0; i < lines.length; i++)
@@ -137,7 +208,8 @@ videoController.addEventListener('click', (event) => {
             videoPlayer.currentTime = 0
             break
         case '<<':
-            videoPlayer.playbackRate = videoPlayer.playbackRate * 0.5
+            if (videoPlayer.playbackRate > 0.25 )
+                videoPlayer.playbackRate = videoPlayer.playbackRate / 2.0
             break
         case '||':
             videoPlayer.pause()
@@ -147,7 +219,8 @@ videoController.addEventListener('click', (event) => {
             videoPlayer.play()
             break
         case '>>':
-            videoPlayer.playbackRate = videoPlayer.playbackRate * 2.0
+            if (videoPlayer.playbackRate < 16)
+                videoPlayer.playbackRate = videoPlayer.playbackRate * 2.0
             break
         case 'Framed':
             framed = false
