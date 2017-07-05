@@ -76,6 +76,7 @@ function drawChart(csvHeader, realtimeInfo) {
     }
 
     let rows1 = [], rows2 = []
+    let startIdx = parseFloat(realtimeInfo[0][0])
     for (let i = 0; i < realtimeInfo.length; i++) {
         let row1 = [], row2 = []
         row1.push(parseFloat(realtimeInfo[i][0]))
@@ -99,6 +100,12 @@ function drawChart(csvHeader, realtimeInfo) {
             title: 'Data Visualization 1',
             subtitle: 'put subtitle here'
         },
+        hAxis: {
+            viewWindow: {
+                min: startIdx,
+                max: startIdx+60
+            }
+        },
         width: linechart_width,
         height: linechart_height
     }
@@ -106,6 +113,12 @@ function drawChart(csvHeader, realtimeInfo) {
         chart: {
             title: 'Data Visualization 2',
             subtitle: 'put subtitle here'
+        },
+        hAxis: {
+            viewWindow: {
+                min: startIdx,
+                max: startIdx+60
+            }
         },
         width: linechart_width,
         height: linechart_height
