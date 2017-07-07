@@ -38,7 +38,8 @@ let csvHeader = null
 let isCSVHeader = true
 let realtimeInfo = []
 
-fs.createReadStream("./app/data/Synchronized_data_Yuanma_Trip6.csv")
+let csvFile = path.join(app.getAppPath(), 'app/data/Synchronized_data_Yuanma_Trip6.csv')
+fs.createReadStream(csvFile)
     .pipe(parse({delimiter: ','}))
     .on('data', function(csvrow) {
         if (isCSVHeader) {

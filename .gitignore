@@ -5,6 +5,7 @@ app/TAGS
 app/matlab/output/*
 *.log
 package-lock.json
+TRI_demo-win32-x64/*
 
 .DS_Store
 
