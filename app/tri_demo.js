@@ -141,6 +141,8 @@ const openVideoFromUser = exports.openVideoFromUser = () => {
     mainWindow.webContents.send('update-gps', currentLat, currentLng)
 
     mainWindow.webContents.send('opened-video', videoFile)
+
+    mainWindow.webContents.send('opened-csv', csvHeader, realtimeInfo)
 }
 
 // Get the current GPS and send the update-gps signal to update ////////////////
@@ -204,9 +206,7 @@ const updateLocalVariables = (reqTimeStamp) => {
 
 const updateRealtimeInfo = (reqTimeStamp) => {
     let data_index = Math.floor(reqTimeStamp)
-    let data_index_start = data_index - 60 > 0 ? data_index - 60 : 0
-    rinfo = realtimeInfo.slice(data_index_start, data_index)
-    mainWindow.webContents.send('update-info', csvHeader, rinfo)
+    mainWindow.webContents.send('update-info', data_index)
 }
 
 // Update Map /////////////////////////////////////////////////////////////////
@@ -219,6 +219,7 @@ const updateMap = exports.updateMap = (reqTimeStamp) => {
         updateCurrentGPS(reqTimeStamp)
         updateCurrentLink(reqTimeStamp)
         updateLocalVariables(reqTimeStamp)
+        // Update by 5s
         if (Math.floor(reqTimeStamp) % 5 == 0)
             updateRealtimeInfo(reqTimeStamp)
     }

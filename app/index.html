@@ -54,7 +54,7 @@
         <!-- Video Canvas -->
         <div class="col-md-6">
           <canvas id="video-canvas"></canvas>
-          <video src="" id="video-player" style="margin-top:30px;width:800px;height:0px" controls>
+          <video src="" id="video-player" style="margin-top:30px;width:100%;height:0px" controls>
                     </video>
 
           <!-- Video Canvas Control -->
@@ -86,7 +86,217 @@
         </div>
       </div>
       <div class="row">
+        <div class="col-md-12 text-center">
+          <button id="toggleFixedInterval" class="w3-btn w3-section">Toggle Fixed Interval</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6" id="chart1_checkboxes">
+          <fieldset>
+            <legend>Select data to display in Chart1</legend>
+            <div class="col-md-6">
+              <div>
+                <input type="checkbox" id="ecg1" value="ecg1" checked>
+                <label for="ecg1">ecg</label>
+              </div>
+              <div>
+                <input type="checkbox" id="hr1" value="hr1">
+                <label for="hr1">hr</label>
+              </div>
+              <div>
+                <input type="checkbox" id="hrv1" value="hrv1">
+                <label for="hrv1">hrv</label>
+              </div>
+              <div>
+                <input type="checkbox" id="br1" value="br1">
+                <label for="br1">br</label>
+              </div>
+              <div>
+                <input type="checkbox" id="posture1" value="posture1">
+                <label for="posture1">posture</label>
+              </div>
+              <div>
+                <input type="checkbox" id="activity1" value="activity1">
+                <label for="activity1">activity</label>
+              </div>
+              <div>
+                <input type="checkbox" id="peakaccel1" value="peakaccel1">
+                <label for="peakaccel1">peakaccel</label>
+              </div>
+              <div>
+                <input type="checkbox" id="gsr1" value="gsr1">
+                <label for="gsr1">gsr</label>
+              </div>
+              <div>
+                <input type="checkbox" id="scl1" value="scl1">
+                <label for="scl1">scl</label>
+              </div>
+              <div>
+                <input type="checkbox" id="scr1" value="scr1">
+                <label for="scr1">scr</label>
+              </div>
+              <div>
+                <input type="checkbox" id="driver_workload1" value="driver_workload1">
+                <label for="driver_workload1">driver workload</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div>
+                <input type="checkbox" id="expert_workload1" value="expert_workload1">
+                <label for="expert_workload1">expert workload</label>
+              </div>
+              <div>
+                <input type="checkbox" id="traffic_load1" value="traffic_load1">
+                <label for="traffic_load1">traffic load</label>
+              </div>
+              <div>
+                <input type="checkbox" id="event1" value="event1">
+                <label for="event1">event</label>
+              </div>
+              <div>
+                <input type="checkbox" id="time_s1" value="time_s1">
+                <label for="time_s1">time [s]</label>
+              </div>
+              <div>
+                <input type="checkbox" id="speed_mph1" value="speed_mph1">
+                <label for="speed_mph1">speed [mph]</label>
+              </div>
+              <div>
+                <input type="checkbox" id="GPS_long_degs1" value="GPS_long_degs1">
+                <label for="GPS_long_degs1">GPS long [degs]</label>
+              </div>
+              <div>
+                <input type="checkbox" id="GPS_lat_degs1" value="GPS_lat_degs1">
+                <label for="GPS_lat_degs1">GPS lat [degs]</label>
+              </div>
+              <div>
+                <input type="checkbox" id="GPS_heading_degs1" value="GPS_heading_degs1">
+                <label for="GPS_heading_degs1">GPS heading [degs]</label>
+              </div>
+              <div>
+                <input type="checkbox" id="long_accel_g1" value="long_accel_g1">
+                <label for="long_accel_g1">long accel [g]</label>
+              </div>
+              <div>
+                <input type="checkbox" id="lat_accel_g1" value="lat_accel_g1">
+                <label for="lat_accel_g1">lat accel [g]</label>
+              </div>
+              <div>
+                <input type="checkbox" id="vector_accel_g1" value="vector_accel_g1">
+                <label for="vector_accel_g1">vector accel [g]</label>
+              </div>
+              <div>
+                <input type="checkbox" id="vert_accel_g1" value="vert_accel_g1">
+                <label for="vert_accel_g1">vert accel [g]</label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="col-md-6" id="chart2_checkboxes">
+          <fieldset>
+            <legend>Select data to display in Chart2</legend>
+            <div class="col-md-6">
+              <div>
+                <input type="checkbox" id="ecg2" value="ecg2">
+                <label for="ecg2">ecg</label>
+              </div>
+              <div>
+                <input type="checkbox" id="hr2" value="hr2" checked>
+                <label for="hr2">hr</label>
+              </div>
+              <div>
+                <input type="checkbox" id="hrv2" value="hrv2" checked>
+                <label for="hrv2">hrv</label>
+              </div>
+              <div>
+                <input type="checkbox" id="br2" value="br2" checked>
+                <label for="br2">br</label>
+              </div>
+              <div>
+                <input type="checkbox" id="posture2" value="posture2">
+                <label for="posture2">posture</label>
+              </div>
+              <div>
+                <input type="checkbox" id="activity2" value="activity2">
+                <label for="activity2">activity</label>
+              </div>
+              <div>
+                <input type="checkbox" id="peakaccel2" value="peakaccel2">
+                <label for="peakaccel2">peakaccel</label>
+              </div>
+              <div>
+                <input type="checkbox" id="gsr2" value="gsr2">
+                <label for="gsr2">gsr</label>
+              </div>
+              <div>
+                <input type="checkbox" id="scl2" value="scl2">
+                <label for="scl2">scl</label>
+              </div>
+              <div>
+                <input type="checkbox" id="scr2" value="scr2">
+                <label for="scr2">scr</label>
+              </div>
+              <div>
+                <input type="checkbox" id="driver_workload2" value="driver_workload2">
+                <label for="driver_workload2">driver workload</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div>
+                <input type="checkbox" id="expert_workload2" value="expert_workload2">
+                <label for="expert_workload2">expert workload</label>
+              </div>
+              <div>
+                <input type="checkbox" id="traffic_load2" value="traffic_load2">
+                <label for="traffic_load2">traffic load</label>
+              </div>
+              <div>
+                <input type="checkbox" id="event2" value="event2">
+                <label for="event2">event</label>
+              </div>
+              <div>
+                <input type="checkbox" id="time_s2" value="time_s2">
+                <label for="time_s2">time [s]</label>
+              </div>
+              <div>
+                <input type="checkbox" id="speed_mph2" value="speed_mph2">
+                <label for="speed_mph2">speed [mph]</label>
+              </div>
+              <div>
+                <input type="checkbox" id="GPS_long_degs2" value="GPS_long_degs2">
+                <label for="GPS_long_degs2">GPS long [degs]</label>
+              </div>
+              <div>
+                <input type="checkbox" id="GPS_lat_degs2" value="GPS_lat_degs2">
+                <label for="GPS_lat_degs2">GPS lat [degs]</label>
+              </div>
+              <div>
+                <input type="checkbox" id="GPS_heading_degs2" value="GPS_heading_degs2">
+                <label for="GPS_heading_degs2">GPS heading [degs]</label>
+              </div>
+              <div>
+                <input type="checkbox" id="long_accel_g2" value="long_accel_g2">
+                <label for="long_accel_g2">long accel [g]</label>
+              </div>
+              <div>
+                <input type="checkbox" id="lat_accel_g2" value="lat_accel_g2">
+                <label for="lat_accel_g2">lat accel [g]</label>
+              </div>
+              <div>
+                <input type="checkbox" id="vector_accel_g2" value="vector_accel_g2">
+                <label for="vector_accel_g2">vector accel [g]</label>
+              </div>
+              <div>
+                <input type="checkbox" id="vert_accel_g2" value="vert_accel_g2">
+                <label for="vert_accel_g2">vert accel [g]</label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-md-6" id="info1">
+          <h3 class="rder-bottom w3-border-light-grey w3-padding-12">More Details</h3>
           <ul>
             <li><b>Video Path: </b><span id="videoPath"></span></li <li><b>Current Time: </b><span id="currentTime"></span></li>
             <!-- <li><b>Update Interval: </b><span id="updateInterval"></span></li> -->

@@ -24,6 +24,26 @@ let context = null
 let framed = true
 let frame = $('#video-player img:first-of-type')[0]
 
+let fixedInterval = 60
+let lastCheckedRealtimeLen = 0
+
+// add click event listener for Toggle Fixed Interval
+$("#toggleFixedInterval").click(() => {
+    if (fixedInterval == -1)
+        fixedInterval = 60
+    else
+        fixedInterval = -1
+    drawChart(lastCheckedRealtimeLen)
+})
+
+// add click event listener for checkboxes
+$(":checkbox").click(function() {
+    drawChart(lastCheckedRealtimeLen)
+})
+
+let csvHeader = []
+let realtimeInfo = []
+
 // update the link section highlight
 const updateLinkPlot = (map, shape_points) => {
     let directionsDisplay = new google.maps.DirectionsRender
@@ -60,36 +80,82 @@ google.charts.load('current', {
 })
 // google.charts.setOnLoadCallback(drawChart);
 
-function drawChart(csvHeader, realtimeInfo) {
-    var data1 = new google.visualization.DataTable();
-    var data2 = new google.visualization.DataTable();
+function drawChart(data_index) {
+    var data1 = new google.visualization.DataTable()
+    var data2 = new google.visualization.DataTable()
+    let rows1 = [], rows2 = []
+
+    let dataset1 = [], dataset2 = []
+    checkboxes = ["ecg", "hr", "hrv", "br", "posture", "activity", "peakaccel", "gsr", "scl", "scr", "driver_workload", "expert_workload", "traffic_load", "event", "time_s", "speed_mph", "GPS_long_degs", "GPS_lat_degs", "GPS_heading_degs", "long_accel_g", "lat_accel_g", "vector_accel_g", "vert_accel_g"]
+    for (let i = 0; i < checkboxes.length; i++) {
+        let id1 = checkboxes[i] + "1"
+        if (document.getElementById(id1).checked)
+            dataset1.push(i + 2)
+        let id2 = checkboxes[i] + "2"
+        if (document.getElementById(id2).checked)
+            dataset2.push(i + 2)
+    }
 
     // add time column for x-axis
-    data1.addColumn('number', csvHeader[0])
-    data2.addColumn('number', csvHeader[0])
-    for (let i = 2; i < 3; i++) {
-        data1.addColumn('number', csvHeader[i])
+    data1.addColumn('number', csvHeader[0] + "/s")
+    data2.addColumn('number', csvHeader[0] + "/s")
+
+    // add headers
+    for (let i = 0; i < dataset1.length; i++) {
+        let idx = dataset1[i]
+        data1.addColumn('number', csvHeader[idx])
     }
 
-    for (let i = 3; i < 6; i++) {
-        data2.addColumn('number', csvHeader[i])
+    for (let i = 0; i < dataset2.length; i++) {
+        let idx = dataset2[i]
+        data2.addColumn('number', csvHeader[idx])
     }
 
-    let rows1 = [], rows2 = []
-    let startIdx = parseFloat(realtimeInfo[0][0])
-    for (let i = 0; i < realtimeInfo.length; i++) {
+    let startIdx = 0
+    let endIdx = data_index
+    if (fixedInterval > 0 && endIdx >= fixedInterval) {
+        startIdx = endIdx - fixedInterval
+    } else {
+        startIdx = 0
+    }
+
+    let realtimeInfoMax = [], realtimeInfoMin = []
+    for (let i = startIdx; i <= endIdx; i++) {
+        for (let j = 2; j < realtimeInfo[i].length; j++) {
+            if (j in realtimeInfoMax)
+                realtimeInfoMax[j] = Math.max(realtimeInfoMax[j], Math.max(parseFloat(realtimeInfo[i][j])))
+            else
+                realtimeInfoMax[j] = parseFloat(realtimeInfo[i][j])
+            if (j in realtimeInfoMin)
+                realtimeInfoMin[j] = Math.min(realtimeInfoMin[j], Math.min(parseFloat(realtimeInfo[i][j])))
+            else
+                realtimeInfoMin[j] = parseFloat(realtimeInfo[i][j])
+        }
+    }
+
+    for (let i = startIdx; i <= endIdx; i++) {
         let row1 = [], row2 = []
         row1.push(parseFloat(realtimeInfo[i][0]))
         row2.push(parseFloat(realtimeInfo[i][0]))
-        for (let j = 2; j < 3; j++) {
-            row1.push(parseFloat(realtimeInfo[i][j]))
+        for (let j = 0; j < dataset1.length; j++) {
+            let idx = dataset1[j]
+            let d1 = parseFloat(realtimeInfo[i][idx])
+            let diff = realtimeInfoMax[idx]-realtimeInfoMin[idx]
+            if (diff == 0) {
+                diff = Math.max(Math.abs(realtimeInfoMax[idx]), Math.abs(realtimeInfoMin[idx]))
+                if (diff == 0) diff = 1
+            }
+            let normalizedData = (d1 - realtimeInfoMin[idx])/diff*100
+            row1.push(normalizedData)
         }
-        for (let j = 3; j < 6; j++) {
-            row2.push(parseFloat(realtimeInfo[i][j]))
+        for (let j = 0; j < dataset2.length; j++) {
+            let idx = dataset2[j]
+            row2.push(parseFloat(realtimeInfo[i][idx]))
         }
         rows1.push(row1)
         rows2.push(row2)
     }
+
     data1.addRows(rows1)
     data2.addRows(rows2)
 
@@ -97,28 +163,34 @@ function drawChart(csvHeader, realtimeInfo) {
     let linechart_height = $("#linechart_1").height()
     let options1 = {
         chart: {
-            title: 'Data Visualization 1',
+            title: 'Normalized Data Visualization',
             subtitle: 'put subtitle here'
         },
         hAxis: {
             viewWindow: {
                 min: startIdx,
-                max: startIdx+60
+                max: endIdx
             }
+        },
+        vAxis: {
+            format: "decimal"
         },
         width: linechart_width,
         height: linechart_height
     }
     let options2 = {
         chart: {
-            title: 'Data Visualization 2',
+            title: 'Original Data Visualization',
             subtitle: 'put subtitle here'
         },
         hAxis: {
             viewWindow: {
                 min: startIdx,
-                max: startIdx+60
+                max: endIdx
             }
+        },
+        vAxis: {
+            format: "decimal"
         },
         width: linechart_width,
         height: linechart_height
@@ -129,14 +201,23 @@ function drawChart(csvHeader, realtimeInfo) {
     chart2.draw(data2, google.charts.Line.convertOptions(options2));
 }
 
-ipcRenderer.on('update-info', (event, csvHeader, realtimeInfo) => {
+ipcRenderer.on('update-info', (event, data_index) => {
     console.log("event: update-info")
     // text info //////////////////////////////////////////////////////////////
     // $("#info2").empty()
     // for (let i = 0; i < csvHeader.length; i++) {
     //     $("#info2").append("<li><b>" + csvHeader[i] + "</b>: " + realtimeInfo[i] + "<li>")
     // }
-    drawChart(csvHeader, realtimeInfo)
+
+    drawChart(data_index)
+    lastCheckedRealtimeLen = data_index
+})
+
+ipcRenderer.on('opened-csv', (event, header, rinfo) => {
+    console.log("event: opened-csv")
+
+    csvHeader = header
+    realtimeInfo = rinfo
 })
 
 ipcRenderer.on('opened-video', (event, videoFile) => {
@@ -221,7 +302,7 @@ videoController.addEventListener('click', (event) => {
             videoPlayer.currentTime = 0
             break
         case '<<':
-            if (videoPlayer.playbackRate > 0.25 )
+            if (videoPlayer.playbackRate > 0.25)
                 videoPlayer.playbackRate = videoPlayer.playbackRate / 2.0
             break
         case '||':
