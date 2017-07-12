@@ -164,7 +164,7 @@ function drawChart(data_index) {
     let options1 = {
         chart: {
             title: 'Normalized Data Visualization',
-            subtitle: 'put subtitle here'
+            subtitle: 'The normalized data is range from [0, 100]'
         },
         hAxis: {
             viewWindow: {
@@ -181,7 +181,7 @@ function drawChart(data_index) {
     let options2 = {
         chart: {
             title: 'Original Data Visualization',
-            subtitle: 'put subtitle here'
+            subtitle: 'This displays the original data'
         },
         hAxis: {
             viewWindow: {
