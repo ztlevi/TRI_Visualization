@@ -164,7 +164,7 @@ function drawChart(data_index) {
     let options1 = {
         chart: {
             title: 'Normalized Data Visualization',
-            subtitle: 'The normalized data is range from [0, 100]'
+            subtitle: 'The normalized data is ranged from [0, 100]'
         },
         hAxis: {
             viewWindow: {
@@ -181,7 +181,7 @@ function drawChart(data_index) {
     let options2 = {
         chart: {
             title: 'Original Data Visualization',
-            subtitle: 'This displays the original data'
+            subtitle: 'This chart displays the original data'
         },
         hAxis: {
             viewWindow: {
@@ -199,6 +199,27 @@ function drawChart(data_index) {
     var chart2 = new google.charts.Line(document.getElementById('linechart_2'));
     chart1.draw(data1, google.charts.Line.convertOptions(options1));
     chart2.draw(data2, google.charts.Line.convertOptions(options2));
+
+    google.visualization.events.addListener(chart1, 'select',trackSelectedTime1)
+    google.visualization.events.addListener(chart2, 'select',trackSelectedTime2)
+
+    function trackSelectedTime1() {
+        let item = chart1.getSelection()
+        item = item[0]
+        if (item != null && item.row != null) {
+            var time = data1.getFormattedValue(item.row, 0);
+            videoPlayer.currentTime = parseInt(time)
+        }
+    }
+
+    function trackSelectedTime2() {
+        let item = chart2.getSelection()
+        item = item[0]
+        if (item != null && item.row != null) {
+            var time = data2.getFormattedValue(item.row, 0);
+            videoPlayer.currentTime = parseInt(time)
+        }
+    }
 }
 
 ipcRenderer.on('update-info', (event, data_index) => {
