@@ -1,24 +1,27 @@
 {
-  "name": "TRI_demo",
-  "version": "1.0.0",
-  "description": "",
-  "main": "./app/tri_demo.js",
-  "scripts": {
-    "postinstall": "install-app-deps",
-    "start": "electron ."
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "electron": "~1.4",
-    "electron-builder": "^15.5.1",
-    "electron-rebuild": "^1.5.7"
-  },
-  "dependencies": {
-    "bootstrap": "^3.3.7",
-    "csv": "^1.1.1",
-    "jquery": "^3.1.1",
-    "sqlite3": "^3.1.8"
-  }
+    "name": "TRI_demo",
+    "version": "1.0.0",
+    "description": "",
+    "main": "./app/tri_demo.js",
+    "scripts": {
+        "postinstall": "install-app-deps",
+        "start": "electron ."
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "electron": "~1.4",
+        "electron-builder": "^15.5.1",
+        "electron-rebuild": "^1.5.7"
+    },
+    "dependencies": {
+        "bootstrap": "^3.3.7",
+        "csv": "^1.1.1",
+        "jquery": "^3.1.1",
+        "sqlite3": "^3.1.8"
+    },
+    "scripts": {
+        "test": "npm start"
+    }
 }

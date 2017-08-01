@@ -1,4 +1,6 @@
 # Demo Program for Toyota Research Institute
+[![Build Status](https://travis-ci.org/ztlevi/TRI_demo.svg?branch=master)](https://travis-ci.org/ztlevi/TRI_demo)
+
 ## Install
 
 Download the binary demo program below:
@@ -12,13 +14,13 @@ https://github.com/ztlevi/TRI_demo/releases
 There is a demo video recorded can be viewed [here](https://youtu.be/uuWda2Rw0P4)
 
 2. Video canvas and Google Map view
-![shortcut1](./shortcuts/1.jpg) 
+   ![shortcut1](./shortcuts/1.jpg) 
 
 3. Signal Line Charts
-![shortcut2](./shortcuts/2.jpg) 
+   ![shortcut2](./shortcuts/2.jpg) 
 
 4. Signal Selections
-![shortcut3](./shortcuts/3.jpg) 
+   ![shortcut3](./shortcuts/3.jpg) 
 
 ## Features
 - Real-time driving information monitoring (displayed on Google Map, video, and More detail section)
