@@ -1,11 +1,19 @@
-# Demo Program for Toyota Research Institute
-[![Build Status](https://travis-ci.org/ztlevi/TRI_demo.svg?branch=master)](https://travis-ci.org/ztlevi/TRI_demo)
+# Demo Program for TRI Porject (funded by Toyota Research Institute)
+![Build Status](https://img.shields.io/shippable/5444c5ecb904a4b21567b0ff.svg)![Release Version](https://img.shields.io/badge/release-1.2-blue.svg)
 
 ## Install
 
-Download the binary demo program below:
+1. Download the binary [release](https://github.com/ztlevi/TRI_demo/releases).
 
-https://github.com/ztlevi/TRI_demo/releases
+2. Download the video file from my Dropbox: [video](https://www.dropbox.com/s/3jri3jgxdlaqb7o/8PF6005U.mp4?dl=0) 
+
+## Run
+1. Unzip and run the executable file.
+   - Windows: TRI_demo.exe
+   - MacOS X: TRI_demo.app
+
+2. Click the "Open Video" button in the middle and locate the video file.
+![click button](https://ws1.sinaimg.cn/large/006tKfTcgy1fi4vwjoxudj31kw0yptep.jpg)
 
 ## Screenshot
 
@@ -18,6 +26,7 @@ There is a demo video recorded can be viewed [here](https://youtu.be/uuWda2Rw0P4
 
 3. Signal Line Charts
    ![shortcut2](./shortcuts/2.jpg) 
+   You can click the coordinate points in charts to trace back to the time of coordinate points.
 
 4. Signal Selections
    ![shortcut3](./shortcuts/3.jpg) 
@@ -30,6 +39,8 @@ There is a demo video recorded can be viewed [here](https://youtu.be/uuWda2Rw0P4
 
 ## Built on
 - [Electron](https://electron.atom.io/): Build cross platform desktop apps with JavaScript, HTML, and CSS
+- Google Map API
+- Google Visualization API
 
 ## License
 All rights reversed under Intelligent System Lab in UM-Dearborn and Toyota Research Institute.
