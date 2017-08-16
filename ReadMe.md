@@ -13,7 +13,7 @@
    - MacOS X: TRI_demo.app
 
 2. Click the "Open Video" button in the middle and locate the video file.
-![click button](https://ws1.sinaimg.cn/large/006tKfTcgy1fi4vwjoxudj31kw0yptep.jpg)
+![click button](./shortcuts/0.jpg)
 
 ## Screenshot
 
