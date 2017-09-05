@@ -13,7 +13,7 @@
    - MacOS X: TRI_demo.app
 
 2. Click the "Open Video" button in the middle and locate the video file.
-![click button](./shortcuts/0.jpg)
+![click button](./Screenshots/0.jpg)
 
 ## Screenshot
 
@@ -22,14 +22,14 @@
 There is a demo video recorded can be viewed [here](https://youtu.be/uuWda2Rw0P4)
 
 2. Video canvas and Google Map view
-   ![shortcut1](./shortcuts/1.jpg) 
+   ![shortcut1](./Screenshots/1.jpg) 
 
 3. Signal Line Charts
-   ![shortcut2](./shortcuts/2.jpg) 
+   ![shortcut2](./Screenshots/2.jpg) 
    You can click the coordinate points in charts to trace back to the time of coordinate points.
 
 4. Signal Selections
-   ![shortcut3](./shortcuts/3.jpg) 
+   ![shortcut3](./Screenshots/3.jpg) 
 
 ## Features
 - Real-time driving information monitoring (displayed on Google Map, video, and More detail section)
