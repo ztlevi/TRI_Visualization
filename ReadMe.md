@@ -5,7 +5,7 @@
 
 1. Download the binary [release](https://github.com/ztlevi/TRI_demo/releases).
 
-2. Download the video file from my Dropbox: [video](https://www.dropbox.com/s/3jri3jgxdlaqb7o/8PF6005U.mp4?dl=0) 
+2. Download the video file from my Google Drive: [video](https://drive.google.com/file/d/0B4D00TEC3VOUdVpqMFJtUE1oMVk/view?usp=sharing) 
 
 ## Run
 1. Unzip and run the executable file.
