@@ -86,7 +86,7 @@ function drawChart(data_index) {
     let rows1 = [], rows2 = []
 
     let dataset1 = [], dataset2 = []
-    checkboxes = ["ecg", "hr", "hrv", "br", "posture", "activity", "peakaccel", "gsr", "scl", "scr", "driver_workload", "expert_workload", "traffic_load", "event", "time_s", "speed_mph", "GPS_long_degs", "GPS_lat_degs", "GPS_heading_degs", "long_accel_g", "lat_accel_g", "vector_accel_g", "vert_accel_g"]
+    checkboxes = ["hr", "hrv", "br", "posture", "activity", "peakaccel", "gsr", "scl", "scr", "driver_workload", "expert_workload", "traffic_load", "event", "time_s", "speed_mph", "GPS_long_degs", "GPS_lat_degs", "GPS_heading_degs", "long_accel_g", "lat_accel_g", "vector_accel_g", "vert_accel_g"]
     for (let i = 0; i < checkboxes.length; i++) {
         let id1 = checkboxes[i] + "1"
         if (document.getElementById(id1).checked)
@@ -241,22 +241,13 @@ ipcRenderer.on('opened-csv', (event, header, rinfo) => {
     realtimeInfo = rinfo
 })
 
-ipcRenderer.on('opened-video', (event, videoFile) => {
-    console.log("event: opened-video")
-    videoPlayer.src = videoFile
-    $("#videoPath").text(videoFile.toString()) // use jQuery to show video name
-    context = videoCanvas.getContext('2d')
-    videoPlayer.addEventListener('play', drawFrame) // bind the video paly event to the frame drawing function
-    videoPlayer.play()
-})
-
 // grab each frame
 const drawFrame = () => {
     if (videoPlayer.paused || videoPlayer.ended) return false
     // update segmentation information
     let map_width = $("#map").width()
     $("#video-canvas").attr("width", map_width)
-    $("#video-canvas").attr("height", map_width * 0.56)
+    $("#video-canvas").attr("height", map_width * 0.667)
     let canvas_width = $("#video-canvas").width()
     let canvas_height = $("#video-canvas").height()
 
@@ -289,6 +280,15 @@ const drawFrame = () => {
     requestAnimationFrame(drawFrame) // recursive call this function
     return true
 }
+
+ipcRenderer.on('opened-video', (event, videoFile) => {
+    console.log("event: opened-video")
+    videoPlayer.src = videoFile
+    $("#videoPath").text(videoFile.toString()) // use jQuery to show video name
+    context = videoCanvas.getContext('2d')
+    videoPlayer.addEventListener('play', drawFrame) // bind the video paly event to the frame drawing function
+    videoPlayer.play()
+})
 
 videoPlayer.addEventListener('timeupdate', () => {
     console.log("event: video-player -> ontimeupdate\n" + "currentTime: " + videoPlayer.currentTime)

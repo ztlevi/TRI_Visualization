@@ -70,7 +70,7 @@
 
         <!-- Google Map -->
         <div class="col-md-6">
-          <div id="map" style="padding-top: 56%;height:100%"></div>
+          <div id="map" style="padding-top: 66.7%;height:100%"></div>
         </div>
       </div>
 
@@ -95,10 +95,6 @@
           <fieldset>
             <legend>Select signal displayed in chart1</legend>
             <div class="col-md-6">
-              <div>
-                <input type="checkbox" id="ecg1" value="ecg1" checked>
-                <label for="ecg1">ecg</label>
-              </div>
               <div>
                 <input type="checkbox" id="hr1" value="hr1">
                 <label for="hr1">hr</label>
@@ -139,12 +135,12 @@
                 <input type="checkbox" id="driver_workload1" value="driver_workload1">
                 <label for="driver_workload1">driver workload</label>
               </div>
-            </div>
-            <div class="col-md-6">
               <div>
                 <input type="checkbox" id="expert_workload1" value="expert_workload1">
                 <label for="expert_workload1">expert workload</label>
               </div>
+            </div>
+            <div class="col-md-6">
               <div>
                 <input type="checkbox" id="traffic_load1" value="traffic_load1">
                 <label for="traffic_load1">traffic load</label>
@@ -158,7 +154,7 @@
                 <label for="time_s1">time [s]</label>
               </div>
               <div>
-                <input type="checkbox" id="speed_mph1" value="speed_mph1">
+                <input type="checkbox" id="speed_mph1" value="speed_mph1" checked>
                 <label for="speed_mph1">speed [mph]</label>
               </div>
               <div>
@@ -196,10 +192,6 @@
           <fieldset>
             <legend>Select signal displayed in chart2</legend>
             <div class="col-md-6">
-              <div>
-                <input type="checkbox" id="ecg2" value="ecg2">
-                <label for="ecg2">ecg</label>
-              </div>
               <div>
                 <input type="checkbox" id="hr2" value="hr2" checked>
                 <label for="hr2">hr</label>
@@ -240,12 +232,12 @@
                 <input type="checkbox" id="driver_workload2" value="driver_workload2">
                 <label for="driver_workload2">driver workload</label>
               </div>
-            </div>
-            <div class="col-md-6">
               <div>
                 <input type="checkbox" id="expert_workload2" value="expert_workload2">
                 <label for="expert_workload2">expert workload</label>
               </div>
+            </div>
+            <div class="col-md-6">
               <div>
                 <input type="checkbox" id="traffic_load2" value="traffic_load2">
                 <label for="traffic_load2">traffic load</label>
@@ -336,7 +328,7 @@
     // initialize canvas size
     let map_width = $("#map").width()
     $("#video-canvas").attr("width", map_width)
-    $("#video-canvas").attr("height", map_width * 0.56)
+    $("#video-canvas").attr("height", map_width * 0.667)
   </script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKewL3hAp5w0t6sSNgUuEZr4WXGF_CdgE ">
   </script>

@@ -38,7 +38,7 @@ let csvHeader = null
 let isCSVHeader = true
 let realtimeInfo = []
 
-let csvFile = path.join(app.getAppPath(), 'app/data/Synchronized_data_Yuanma_Trip6.csv')
+let csvFile = path.join(app.getAppPath(), 'app/data/Trip07.csv')
 fs.createReadStream(csvFile)
     .pipe(parse({delimiter: ','}))
     .on('data', function(csvrow) {
@@ -126,6 +126,7 @@ const openVideoFromUser = exports.openVideoFromUser = () => {
 
     try {
         OBD_data = JSON.parse(fs.readFileSync(OBD_file, 'utf8'))
+        OBD_data = OBD_data["data_samples"]
         infras_seg_result = JSON.parse(fs.readFileSync(infras_seg_result_file, 'utf8'))
     } catch (err) {
         console.log(err.message)
