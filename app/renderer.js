@@ -315,12 +315,14 @@ ipcRenderer.on('opened-infras_segment_result', (event, infras_seg_result) => {
             let curSegEndTime = infras_seg[idx].end_time
             if(curSegStartTime != null && Math.ceil(videoPlayer.currentTime) < curSegStartTime){
                 videoPlayer.currentTime = curSegStartTime + 1
-                alert("Infrastructure Segmentation Start Reached!");
+                alert("Infrastructure Segmentation Start Reached!")
+		videoPlayer.currentTime = curSegStartTime + 1
                 videoPlayer.pause()
             }
             if(curSegEndTime != null && Math.floor(videoPlayer.currentTime) > curSegEndTime){
                 videoPlayer.currentTime = curSegEndTime - 1
-                alert("Infrastructure Segmentation End Reached!");
+                alert("Infrastructure Segmentation End Reached!")
+		videoPlayer.currentTime = curSegEndTime - 1
                 videoPlayer.pause()
             }
         }
