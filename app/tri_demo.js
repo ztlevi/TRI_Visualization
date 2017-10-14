@@ -59,7 +59,8 @@ const createWindow = () => {
     // Create browser window
     mainWindow = new BrowserWindow({
         width: 800,
-        height: 600
+        height: 600,
+        icon: __dirname + '/tri_demo.ico'
     })
 
     mainWindow.maximize()
@@ -122,7 +123,7 @@ const openVideoFromUser = exports.openVideoFromUser = () => {
 
     const OBD_file = path.join(app.getAppPath(), 'app/data/OBD.json')
     const infras_seg_result_file = path.join(app.getAppPath(),
-        'app/data/infras_segment_result.json')
+        'app/data/infras_segmentation_result.json')
 
     try {
         OBD_data = JSON.parse(fs.readFileSync(OBD_file, 'utf8'))
@@ -142,6 +143,8 @@ const openVideoFromUser = exports.openVideoFromUser = () => {
     mainWindow.webContents.send('update-gps', currentLat, currentLng)
 
     mainWindow.webContents.send('opened-video', videoFile)
+
+    mainWindow.webContents.send('opened-infras_segment_result', infras_seg_result)
 
     mainWindow.webContents.send('opened-csv', csvHeader, realtimeInfo)
 }

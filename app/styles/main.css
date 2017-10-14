@@ -92,7 +92,7 @@ ul.w3-ul{list-style-type:none;padding:0;margin:0}ul.w3-ul li{padding:6px 2px 6px
 .w3-input-group,.w3-group{margin-top:24px;margin-bottom:24px}
 .w3-input{padding:8px;display:block;border:none;border-bottom:1px solid #808080;width:100%}
 .w3-label{color:#009688}.w3-input:not(:valid)~.w3-validate{color:#f44336}
-.w3-select{padding:9px 0;width:100%;color:#000;border:1px solid transparent;border-bottom:1px solid #009688}
+.w3-select{padding:9px 0;width:20%;color:#000;border:1px solid transparent;border-bottom:1px solid #009688}
 .w3-select select:focus{color:#000;border:1px solid #009688}.w3-select option[disabled]{color:#009688}
 .w3-dropdown-click,.w3-dropdown-hover{position:relative;display:inline-block;cursor:pointer}
 .w3-dropdown-hover:hover .w3-dropdown-content{display:block;z-index:1}

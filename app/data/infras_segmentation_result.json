@@ -1,0 +1,672 @@
+[
+  {
+    "start_time": 0,
+    "end_time": 255,
+    "infras_type": "local",
+    "link_array": [
+      {
+        "linkID": 19692746,
+        "Road Name": "Baxter Rd",
+        "TMC": [],
+        "average_travel_speed": 6.220138137254901
+      }
+    ]
+  },
+  {
+    "start_time": 255,
+    "end_time": 314,
+    "infras_type": "local",
+    "link_array": [
+      {
+        "linkID": 19692729,
+        "Road Name": "Baxter Rd",
+        "TMC": [],
+        "average_travel_speed": 7.138765559322035
+      }
+    ]
+  },
+  {
+    "start_time": 314,
+    "end_time": 346,
+    "infras_type": "local",
+    "link_array": [
+      {
+        "linkID": 880582019,
+        "Road Name": "Green Rd",
+        "TMC": [],
+        "average_travel_speed": 21.44274285714286
+      },
+      {
+        "linkID": 880582020,
+        "Road Name": "Green Rd",
+        "TMC": [],
+        "average_travel_speed": 32.6542
+      },
+      {
+        "linkID": 108256105,
+        "Road Name": "Green Briar Blvd",
+        "TMC": [],
+        "average_travel_speed": 34.2706
+      },
+      {
+        "linkID": 108256108,
+        "Road Name": "Green Briar Blvd",
+        "TMC": [],
+        "average_travel_speed": 35.572
+      },
+      {
+        "linkID": 108256107,
+        "Road Name": "Green Rd",
+        "TMC": [],
+        "average_travel_speed": 36.91276666666667
+      },
+      {
+        "linkID": 908244489,
+        "Road Name": "Green Rd",
+        "TMC": [],
+        "average_travel_speed": 38.322544444444446
+      },
+      {
+        "linkID": 908244490,
+        "Road Name": "Green Rd",
+        "TMC": [],
+        "average_travel_speed": 39.92946666666666
+      },
+      {
+        "linkID": 704400176,
+        "Road Name": "Green Ct",
+        "TMC": [],
+        "average_travel_speed": 39.8899
+      },
+      {
+        "linkID": 127287496,
+        "Road Name": "Green Rd",
+        "TMC": [],
+        "average_travel_speed": 38.14393333333333
+      }
+    ]
+  },
+  {
+    "start_time": 346,
+    "end_time": 423,
+    "infras_type": "local",
+    "link_array": [
+      {
+        "linkID": 956711124,
+        "Road Name": "Green Rd",
+        "TMC": [],
+        "average_travel_speed": 31.0623
+      },
+      {
+        "linkID": 956711126,
+        "Road Name": "",
+        "TMC": [],
+        "average_travel_speed": 27.824
+      },
+      {
+        "linkID": 956711125,
+        "Road Name": "Green Rd",
+        "TMC": [],
+        "average_travel_speed": 5.91982
+      }
+    ]
+  },
+  {
+    "start_time": 423,
+    "end_time": 438,
+    "infras_type": "local",
+    "link_array": [
+      {
+        "linkID": 888205232,
+        "Road Name": "Plymouth Rd",
+        "TMC": ["108+09396", "108-09395"],
+        "average_travel_speed": 17.10745
+      },
+      {
+        "linkID": 956711131,
+        "Road Name": "Plymouth Rd",
+        "TMC": ["108+09396", "108-09395"],
+        "average_travel_speed": 25.18977142857143
+      }
+    ]
+  },
+  {
+    "start_time": 438,
+    "end_time": 470,
+    "infras_type": "local",
+    "link_array": [
+      {
+        "linkID": 956711133,
+        "Road Name": "",
+        "TMC": [],
+        "average_travel_speed": 30.8306
+      },
+      {
+        "linkID": 956711128,
+        "Road Name": "Plymouth Rd",
+        "TMC": ["108+09396", "108-09395"],
+        "average_travel_speed": 32.7006
+      },
+      {
+        "linkID": 108263025,
+        "Road Name": "Plymouth Rd",
+        "TMC": ["108+09396", "108-09395"],
+        "average_travel_speed": 22.132375
+      },
+      {
+        "linkID": 931592669,
+        "Road Name": "",
+        "TMC": [],
+        "average_travel_speed": 39.16747619047619
+      }
+    ]
+  },
+  {
+    "start_time": 470,
+    "end_time": 482,
+    "infras_type": "local",
+    "link_array": [
+      {
+        "linkID": 931592668,
+        "Road Name": "",
+        "TMC": [],
+        "average_travel_speed": 57.301858333333335
+      }
+    ]
+  },
+  {
+    "start_time": 482,
+    "end_time": 548,
+    "infras_type": "ramp",
+    "link_array": [
+      {
+        "linkID": 926841400,
+        "Road Name": "",
+        "TMC": ["108-04336"],
+        "average_travel_speed": 65.37415
+      },
+      {
+        "linkID": 926841399,
+        "Road Name": "",
+        "TMC": ["108-04336"],
+        "average_travel_speed": 67.69473333333333
+      },
+      {
+        "linkID": 127325588,
+        "Road Name": "",
+        "TMC": ["108-04337", "108-04336"],
+        "average_travel_speed": 71.03664
+      },
+      {
+        "linkID": 127325587,
+        "Road Name": "",
+        "TMC": ["108-04336"],
+        "average_travel_speed": 72.7093
+      },
+      {
+        "linkID": 19716638,
+        "Road Name": "",
+        "TMC": ["108-04336"],
+        "average_travel_speed": 73.2958
+      },
+      {
+        "linkID": 827507328,
+        "Road Name": "",
+        "TMC": ["108-04336"],
+        "average_travel_speed": 73.8083
+      },
+      {
+        "linkID": 1004202642,
+        "Road Name": "",
+        "TMC": ["108-04336"],
+        "average_travel_speed": 73.04564
+      },
+      {
+        "linkID": 1004202641,
+        "Road Name": "",
+        "TMC": ["108-04336"],
+        "average_travel_speed": 71.3369
+      },
+      {
+        "linkID": 1020645073,
+        "Road Name": "",
+        "TMC": ["108-04336"],
+        "average_travel_speed": 70.986
+      },
+      {
+        "linkID": 1020645072,
+        "Road Name": "",
+        "TMC": ["108-04336"],
+        "average_travel_speed": 70.09926666666668
+      },
+      {
+        "linkID": 1000425625,
+        "Road Name": "",
+        "TMC": ["108-04336"],
+        "average_travel_speed": 64.18253243243244
+      }
+    ]
+  },
+  {
+    "start_time": 548,
+    "end_time": 570,
+    "infras_type": "ramp",
+    "link_array": [
+      {
+        "linkID": 927078678,
+        "Road Name": "",
+        "TMC": ["108-04336"],
+        "average_travel_speed": 66.20173333333335
+      },
+      {
+        "linkID": 927078677,
+        "Road Name": "",
+        "TMC": ["108-04336"],
+        "average_travel_speed": 58.6173
+      }
+    ]
+  },
+  {
+    "start_time": 570,
+    "end_time": 600,
+    "infras_type": "local",
+    "link_array": [
+      {
+        "linkID": 792391980,
+        "Road Name": "39",
+        "TMC": [],
+        "average_travel_speed": 58.2462
+      },
+      {
+        "linkID": 847811461,
+        "Road Name": "39",
+        "TMC": [],
+        "average_travel_speed": 50.728736363636365
+      },
+      {
+        "linkID": 847811463,
+        "Road Name": "39",
+        "TMC": [],
+        "average_travel_speed": 34.61586
+      },
+      {
+        "linkID": 847811464,
+        "Road Name": "",
+        "TMC": [],
+        "average_travel_speed": 23.45265
+      },
+      {
+        "linkID": 847811462,
+        "Road Name": "",
+        "TMC": [],
+        "average_travel_speed": 20.490857142857145
+      }
+    ]
+  },
+  {
+    "start_time": 600,
+    "end_time": 629,
+    "infras_type": "local",
+    "link_array": [
+      {
+        "linkID": 847811470,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108-11674"],
+        "average_travel_speed": 24.423875000000002
+      },
+      {
+        "linkID": 847811456,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108+11675", "108-11674"],
+        "average_travel_speed": 26.87205
+      },
+      {
+        "linkID": 928248352,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108-11674", "108+11675"],
+        "average_travel_speed": 25.645900000000005
+      },
+      {
+        "linkID": 928248353,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108-11674", "108+11675"],
+        "average_travel_speed": 12.1601
+      },
+      {
+        "linkID": 847811453,
+        "Road Name": "",
+        "TMC": ["108-11674"],
+        "average_travel_speed": 12.1532
+      }
+    ]
+  },
+  {
+    "start_time": 629,
+    "end_time": 632,
+    "infras_type": "local",
+    "link_array": [
+      {
+        "linkID": 847811454,
+        "Road Name": "",
+        "TMC": ["108-11674"],
+        "average_travel_speed": 13.0871
+      }
+    ]
+  },
+  {
+    "start_time": 632,
+    "end_time": 665,
+    "infras_type": "local",
+    "link_array": [
+      {
+        "linkID": 847811452,
+        "Road Name": "",
+        "TMC": ["108-11674"],
+        "average_travel_speed": 17.07405
+      },
+      {
+        "linkID": 867152390,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108-11674", "108+11675"],
+        "average_travel_speed": 22.94978
+      },
+      {
+        "linkID": 1022628947,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108-11674", "108+11675"],
+        "average_travel_speed": 26.928933333333333
+      },
+      {
+        "linkID": 1022628948,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108-11674", "108+11675"],
+        "average_travel_speed": 30.013657142857145
+      },
+      {
+        "linkID": 792391985,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108-11674", "108+11675"],
+        "average_travel_speed": 36.256187499999996
+      }
+    ]
+  },
+  {
+    "start_time": 665,
+    "end_time": 672,
+    "infras_type": "local",
+    "link_array": [
+      {
+        "linkID": 1000490213,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108-11674", "108+11675"],
+        "average_travel_speed": 38.0709
+      },
+      {
+        "linkID": 1000490214,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108-11674", "108+11675"],
+        "average_travel_speed": 37.96268333333334
+      }
+    ]
+  },
+  {
+    "start_time": 672,
+    "end_time": 705,
+    "infras_type": "local",
+    "link_array": [
+      {
+        "linkID": 19693549,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108-11674", "108+11675"],
+        "average_travel_speed": 37.122975
+      },
+      {
+        "linkID": 867152388,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108-11674", "108+11675"],
+        "average_travel_speed": 38.273700000000005
+      },
+      {
+        "linkID": 1000481019,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108-11674", "108+11675"],
+        "average_travel_speed": 37.61926666666667
+      },
+      {
+        "linkID": 1000481020,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108-11674", "108+11675"],
+        "average_travel_speed": 36.5608
+      },
+      {
+        "linkID": 1000682158,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108+11675", "108-11674"],
+        "average_travel_speed": 36.9251
+      },
+      {
+        "linkID": 1000682157,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108+11675", "108-11674"],
+        "average_travel_speed": 36.79625
+      },
+      {
+        "linkID": 1000682156,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108-11674", "108+11675"],
+        "average_travel_speed": 35.87965
+      },
+      {
+        "linkID": 1000490217,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108-11674", "108+11675"],
+        "average_travel_speed": 35.177400000000006
+      },
+      {
+        "linkID": 1000490218,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108-11674", "108+11675", "108-11674", "108+11675"],
+        "average_travel_speed": 32.2759875
+      }
+    ]
+  },
+  {
+    "start_time": 705,
+    "end_time": 737,
+    "infras_type": "local",
+    "link_array": [
+      {
+        "linkID": 882288069,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108-11674", "108+11675"],
+        "average_travel_speed": 27.430728571428574
+      },
+      {
+        "linkID": 882288070,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108-11674", "108+11675"],
+        "average_travel_speed": 22.994966666666667
+      },
+      {
+        "linkID": 882288067,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108-11674", "108+11675"],
+        "average_travel_speed": 24.863787499999997
+      },
+      {
+        "linkID": 888326352,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108-11674", "108+11675"],
+        "average_travel_speed": 24.679833333333335
+      },
+      {
+        "linkID": 888326353,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108-11674", "108+11675"],
+        "average_travel_speed": 9.528490909090909
+      }
+    ]
+  },
+  {
+    "start_time": 737,
+    "end_time": 770,
+    "infras_type": "local",
+    "link_array": [
+      {
+        "linkID": 888326354,
+        "Road Name": "Geddes Rd",
+        "TMC": ["108-11674", "108+11675"],
+        "average_travel_speed": 21.7717
+      },
+      {
+        "linkID": 888326366,
+        "Road Name": "Huron Pkwy",
+        "TMC": ["108+11908"],
+        "average_travel_speed": 27.22007
+      },
+      {
+        "linkID": 888326367,
+        "Road Name": "Huron Pkwy",
+        "TMC": ["108+11908"],
+        "average_travel_speed": 42.04656666666667
+      },
+      {
+        "linkID": 127312034,
+        "Road Name": "Huron Pkwy",
+        "TMC": ["108+11908"],
+        "average_travel_speed": 46.967099999999995
+      },
+      {
+        "linkID": 888326364,
+        "Road Name": "Huron Pkwy",
+        "TMC": ["108+11908"],
+        "average_travel_speed": 48.97655
+      },
+      {
+        "linkID": 888326365,
+        "Road Name": "Huron Pkwy",
+        "TMC": ["108+11908"],
+        "average_travel_speed": 46.48096666666667
+      }
+    ]
+  },
+  {
+    "start_time": 770,
+    "end_time": 801,
+    "infras_type": "local",
+    "link_array": [
+      {
+        "linkID": 928226309,
+        "Road Name": "Huron Pkwy",
+        "TMC": ["108+11908"],
+        "average_travel_speed": 46.16236
+      },
+      {
+        "linkID": 928226310,
+        "Road Name": "Huron Pkwy",
+        "TMC": ["108+11908"],
+        "average_travel_speed": 46.463175
+      },
+      {
+        "linkID": 928226311,
+        "Road Name": "Huron Pkwy",
+        "TMC": ["108+11908"],
+        "average_travel_speed": 45.82946666666667
+      },
+      {
+        "linkID": 928226312,
+        "Road Name": "Huron Pkwy",
+        "TMC": ["108+11908"],
+        "average_travel_speed": 45.059599999999996
+      },
+      {
+        "linkID": 108256095,
+        "Road Name": "Huron Pkwy",
+        "TMC": ["108+11908"],
+        "average_travel_speed": 43.72667333333333
+      }
+    ]
+  },
+  {
+    "start_time": 801,
+    "end_time": 806,
+    "infras_type": "local",
+    "link_array": [
+      {
+        "linkID": 108256098,
+        "Road Name": "Huron Pkwy",
+        "TMC": ["108+11908"],
+        "average_travel_speed": 43.9516
+      },
+      {
+        "linkID": 928226317,
+        "Road Name": "Huron Pkwy",
+        "TMC": ["108+11908"],
+        "average_travel_speed": 43.03635
+      },
+      {
+        "linkID": 928226318,
+        "Road Name": "Huron Pkwy",
+        "TMC": ["108+11908"],
+        "average_travel_speed": 43.712599999999995
+      }
+    ]
+  },
+  {
+    "start_time": 806,
+    "end_time": 854,
+    "infras_type": "local",
+    "link_array": [
+      {
+        "linkID": 27681785,
+        "Road Name": "Huron Pkwy",
+        "TMC": ["108+11909"],
+        "average_travel_speed": 45.11604285714286
+      },
+      {
+        "linkID": 27681784,
+        "Road Name": "Huron Pkwy",
+        "TMC": ["108+11909"],
+        "average_travel_speed": 41.91927058823529
+      },
+      {
+        "linkID": 928226329,
+        "Road Name": "Huron Pkwy",
+        "TMC": ["108+11909"],
+        "average_travel_speed": 34.71588260869566
+      }
+    ]
+  },
+  {
+    "start_time": 854,
+    "end_time": 893,
+    "infras_type": "local",
+    "link_array": [
+      {
+        "linkID": 928226330,
+        "Road Name": "Huron Pkwy",
+        "TMC": ["108+11909"],
+        "average_travel_speed": 2.945216923076923
+      }
+    ]
+  },
+  {
+    "start_time": 893,
+    "end_time": 911,
+    "infras_type": "local",
+    "link_array": [
+      {
+        "linkID": 19692798,
+        "Road Name": "Huron Pkwy",
+        "TMC": ["108+09396", "108-09395", "108+11909"],
+        "average_travel_speed": 31.047205555555554
+      }
+    ]
+  },
+  {
+    "start_time": 911,
+    "end_time": null,
+    "infras_type": "local",
+    "link_array": []
+  }
+]

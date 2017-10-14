@@ -27,6 +27,13 @@ let frame = $('#video-player img:first-of-type')[0]
 let fixedInterval = 60
 let lastCheckedRealtimeLen = 0
 
+// define the global csv file vars
+let csvHeader = []
+let realtimeInfo = []
+
+// infrastructure result
+let infras_seg = []
+
 // add click event listener for Toggle Fixed Interval
 $("#toggleFixedInterval").click(() => {
     if (fixedInterval == -1)
@@ -40,9 +47,6 @@ $("#toggleFixedInterval").click(() => {
 $(":checkbox").click(function() {
     drawChart(lastCheckedRealtimeLen)
 })
-
-let csvHeader = []
-let realtimeInfo = []
 
 // update the link section highlight
 const updateLinkPlot = (map, shape_points) => {
@@ -262,7 +266,7 @@ const drawFrame = () => {
 
         // set the absolute position of the info 
         var x = 0.72 * canvas_width
-        var y = 0.40 * canvas_height
+        var y = 0.80 * canvas_height
         var lineheight = font_size;
         var linkArrText = ""
         for (var i in current_segment_info.link_array)
@@ -280,6 +284,48 @@ const drawFrame = () => {
     requestAnimationFrame(drawFrame) // recursive call this function
     return true
 }
+
+ipcRenderer.on('opened-infras_segment_result', (event, infras_seg_result) => {
+    console.log("event: opened-infras_segment_result")
+    infras_seg = infras_seg_result
+    infras_select = $('#infras_select')
+    infras_select.append($('<option>', { 
+        value: -1,
+        text : ""
+    }))
+    $.each(infras_seg, function (i, infras_seg) {
+        infras_select.append($('<option>', { 
+            value: i,
+            text : infras_seg.start_time + " - " + infras_seg.end_time
+        }))
+    })
+    infras_select.change(() => {
+        let idx = infras_select.val()
+        if (idx >= 0) {
+            videoPlayer.currentTime = infras_seg[idx].start_time
+        }
+    })
+
+    let infras_interval = setInterval(checkInfrasSegEnd, 1000);
+    function checkInfrasSegEnd(){
+        let idx = infras_select.val()
+        // idx >= 0 means segmentation is selected
+        if (idx >= 0) {
+            let curSegStartTime = infras_seg[idx].start_time
+            let curSegEndTime = infras_seg[idx].end_time
+            if(curSegStartTime != null && Math.ceil(videoPlayer.currentTime) < curSegStartTime){
+                videoPlayer.currentTime = curSegStartTime + 1
+                alert("Infrastructure Segmentation Start Reached!");
+                videoPlayer.pause()
+            }
+            if(curSegEndTime != null && Math.floor(videoPlayer.currentTime) > curSegEndTime){
+                videoPlayer.currentTime = curSegEndTime - 1
+                alert("Infrastructure Segmentation End Reached!");
+                videoPlayer.pause()
+            }
+        }
+    }
+})
 
 ipcRenderer.on('opened-video', (event, videoFile) => {
     console.log("event: opened-video")
