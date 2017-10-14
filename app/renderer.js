@@ -255,18 +255,18 @@ const drawFrame = () => {
     let canvas_width = $("#video-canvas").width()
     let canvas_height = $("#video-canvas").height()
 
-    let font_size = Math.round(map_width / 50)
+    let font_size = Math.round(map_width / 40)
     context.clearRect(0, 0, canvas_width, canvas_height)
     context.globalCompositeOperation = c_mode
     context.drawImage(videoPlayer, 0, 0, videoPlayer.videoWidth, videoPlayer.videoHeight, 0, 0, canvas_width, canvas_height)
     if (framed && null !== current_segment_info) {
         // draw some text
         context.font = font_size + "px Verdana"
-        context.fillStyle = "#FFFFFF"
+        context.fillStyle = "#ff0000"
 
         // set the absolute position of the info 
-        var x = 0.72 * canvas_width
-        var y = 0.80 * canvas_height
+        var x = 0.65 * canvas_width
+        var y = 0.85 * canvas_height
         var lineheight = font_size;
         var linkArrText = ""
         for (var i in current_segment_info.link_array)
@@ -316,14 +316,14 @@ ipcRenderer.on('opened-infras_segment_result', (event, infras_seg_result) => {
             if(curSegStartTime != null && Math.ceil(videoPlayer.currentTime) < curSegStartTime){
                 videoPlayer.currentTime = curSegStartTime + 1
                 alert("Infrastructure Segmentation Start Reached!")
-		videoPlayer.currentTime = curSegStartTime + 1
-                videoPlayer.pause()
+                videoPlayer.currentTime = curSegStartTime + 1            
+                setTimeout(videoPlayer.pause(), 100)
             }
             if(curSegEndTime != null && Math.floor(videoPlayer.currentTime) > curSegEndTime){
                 videoPlayer.currentTime = curSegEndTime - 1
                 alert("Infrastructure Segmentation End Reached!")
-		videoPlayer.currentTime = curSegEndTime - 1
-                videoPlayer.pause()
+                videoPlayer.currentTime = curSegEndTime - 1
+                setTimeout(videoPlayer.pause(), 100)
             }
         }
     }
