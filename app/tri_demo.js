@@ -231,16 +231,15 @@ const updateMap = exports.updateMap = (reqTimeStamp) => {
 
 // Update Segmentation information
 const updateSegInfo = exports.updateSegInfo = (reqTimeStamp) => {
-    console.assert(reqTimeStamp > currentSeg.start_time,
-        "reqTimeStamp should be later than the start time of currentSeg.")
+    currentSeg = infras_seg_result[0]
+    currentSeg_index = 0
 
-    if (reqTimeStamp > currentSeg.end_time) {
+    while (reqTimeStamp > currentSeg.end_time) {
         currentSeg_index += 1
         currentSeg = infras_seg_result[currentSeg_index]
-        console.log("enter into a new road_segmentation: " + currentSeg_index)
-        console.log("segment infrastructure type: " + currentSeg.infras_type.toString())
-    } else {
-        console.log("stay in the same road_segmentation.")
     }
+    console.log("enter into a new road_segmentation: " + currentSeg_index)
+    console.log("segment infrastructure type: " + currentSeg.infras_type.toString())
+
     mainWindow.webContents.send('draw_seg_info', currentSeg)
 }

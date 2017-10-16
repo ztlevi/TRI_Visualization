@@ -265,7 +265,7 @@ const drawFrame = () => {
         context.fillStyle = "#ff0000"
 
         // set the absolute position of the info 
-        var x = 0.65 * canvas_width
+        var x = 0.62 * canvas_width
         var y = 0.85 * canvas_height
         var lineheight = font_size;
         var linkArrText = ""
