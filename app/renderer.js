@@ -303,6 +303,7 @@ ipcRenderer.on('opened-infras_segment_result', (event, infras_seg_result) => {
         let idx = infras_select.val()
         if (idx >= 0) {
             videoPlayer.currentTime = infras_seg[idx].start_time
+            videoPlayer.play()
         }
     })
 
