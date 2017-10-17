@@ -255,7 +255,7 @@ const drawFrame = () => {
     let canvas_width = $("#video-canvas").width()
     let canvas_height = $("#video-canvas").height()
 
-    let font_size = Math.round(map_width / 40)
+    let font_size = Math.round(map_width / 30)
     context.clearRect(0, 0, canvas_width, canvas_height)
     context.globalCompositeOperation = c_mode
     context.drawImage(videoPlayer, 0, 0, videoPlayer.videoWidth, videoPlayer.videoHeight, 0, 0, canvas_width, canvas_height)
@@ -265,8 +265,8 @@ const drawFrame = () => {
         context.fillStyle = "#ff0000"
 
         // set the absolute position of the info 
-        var x = 0.62 * canvas_width
-        var y = 0.85 * canvas_height
+        var x = 0.50 * canvas_width
+        var y = 0.75 * canvas_height
         var lineheight = font_size;
         var linkArrText = ""
         for (var i in current_segment_info.link_array)
@@ -296,7 +296,7 @@ ipcRenderer.on('opened-infras_segment_result', (event, infras_seg_result) => {
     $.each(infras_seg, function (i, infras_seg) {
         infras_select.append($('<option>', { 
             value: i,
-            text : infras_seg.start_time + " - " + infras_seg.end_time
+            text : infras_seg.start_time + " - " + infras_seg.end_time + " : " + infras_seg.infras_type
         }))
     })
     infras_select.change(() => {
