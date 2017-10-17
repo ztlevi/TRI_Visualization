@@ -255,18 +255,18 @@ const drawFrame = () => {
     let canvas_width = $("#video-canvas").width()
     let canvas_height = $("#video-canvas").height()
 
-    let font_size = Math.round(map_width / 30)
+    let font_size = Math.round(map_width / 20)
     context.clearRect(0, 0, canvas_width, canvas_height)
     context.globalCompositeOperation = c_mode
     context.drawImage(videoPlayer, 0, 0, videoPlayer.videoWidth, videoPlayer.videoHeight, 0, 0, canvas_width, canvas_height)
     if (framed && null !== current_segment_info) {
         // draw some text
-        context.font = font_size + "px Verdana"
-        context.fillStyle = "#ff0000"
+        context.font = "bold " + font_size + "px arial"
+        context.fillStyle = "#ffffff"
 
         // set the absolute position of the info 
-        var x = 0.50 * canvas_width
-        var y = 0.75 * canvas_height
+        var x = 0.27 * canvas_width
+        var y = 0.72 * canvas_height
         var lineheight = font_size;
         var linkArrText = ""
         for (var i in current_segment_info.link_array)
