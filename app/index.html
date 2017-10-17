@@ -54,7 +54,7 @@
         <!-- Video Canvas -->
         <div class="col-md-6">
           <canvas id="video-canvas"></canvas>
-          <video src="" id="video-player" style="margin-top:30px;width:100%;height:0px" controls>
+          <video src="" id="video-player" style="margin-top:0px;width:100%;height:0px" controls>
                     </video>
 
           <!-- Video Canvas Control -->
@@ -76,11 +76,14 @@
 
       <!-- Selection for segmentation -->
       <div class="row">
-        <div class="col-md-6 text-center">
+        <div class="col-md-5 text-center">
           <h4>Select Infrastructure Segment [s] <select id="infras_select" class="w3-select"></select>
           </h4>
         </div>
-        <div class="col-md-6 text-center">
+        <div class="col-md-2 text-center">
+          <buuton id="clear_seg" class="w3-btn" style="margin-top:7px;margin-bottom:10px">Clear Segmentation</buuton>
+        </div>
+        <div class="col-md-5 text-center">
           <h4>Select Traffic Level Segment [s] <select id="traffic_level_select" class="w3-select"></select>
           </h4>
         </div>

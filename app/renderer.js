@@ -16,7 +16,7 @@ const cModeSelector = 'source-over'
 let triMapper = null
 let current_data = null
 let current_shape_points_array = null
-let current_segment_info = null
+let cur_infras_seg_info = null
 
 let c_mode = 'source-over'
 let context = null
@@ -259,7 +259,7 @@ const drawFrame = () => {
     context.clearRect(0, 0, canvas_width, canvas_height)
     context.globalCompositeOperation = c_mode
     context.drawImage(videoPlayer, 0, 0, videoPlayer.videoWidth, videoPlayer.videoHeight, 0, 0, canvas_width, canvas_height)
-    if (framed && null !== current_segment_info) {
+    if (framed && null !== cur_infras_seg_info) {
         // draw some text
         context.font = "bold " + font_size + "px arial"
         context.fillStyle = "#ffffff"
@@ -269,12 +269,13 @@ const drawFrame = () => {
         var y = 0.72 * canvas_height
         var lineheight = font_size;
         var linkArrText = ""
-        for (var i in current_segment_info.link_array)
-            linkArrText += current_segment_info.link_array[i].linkID + "\n"
+        for (var i in cur_infras_seg_info.link_array)
+            linkArrText += cur_infras_seg_info.link_array[i].linkID + "\n"
 
-        let text = "Road infras level: " + current_segment_info.infras_type.toString() +
-            "\nStart time: " + current_segment_info.start_time +
-            "\nEnd time: " + current_segment_info.end_time
+        let text = "Infras level: " + cur_infras_seg_info.infras_type.toString() +
+            "\nTraffic level: " + cur_traffic_seg_info.traffic_type.toString() +
+            "\nStart time: " + cur_infras_seg_info.start_time +
+            "\nEnd time: " + cur_infras_seg_info.end_time
         // "\nLink array:\n" + linkArrText
 
         var lines = text.split('\n');
@@ -285,21 +286,35 @@ const drawFrame = () => {
     return true
 }
 
+// when infra_segment_result is opened
 ipcRenderer.on('opened-infras_segment_result', (event, infras_seg_result) => {
     console.log("event: opened-infras_segment_result")
     infras_seg = infras_seg_result
     infras_select = $('#infras_select')
+    traffic_level_select = $('#traffic_level_select')
+
+    // set the default null option
     infras_select.append($('<option>', { 
         value: -1,
         text : ""
     }))
+
+    // set the option for each segmentation selection
     $.each(infras_seg, function (i, infras_seg) {
         infras_select.append($('<option>', { 
             value: i,
             text : infras_seg.start_time + " - " + infras_seg.end_time + " : " + infras_seg.infras_type
         }))
     })
+
+    // clear the segmentation selection
+    $('#clear_seg').click(() => {
+        infras_select.val(-1)
+    })
+    
+    // set the infra_select change action
     infras_select.change(() => {
+        traffic_level_select.val(-1)
         let idx = infras_select.val()
         if (idx >= 0) {
             videoPlayer.currentTime = infras_seg[idx].start_time
@@ -330,6 +345,65 @@ ipcRenderer.on('opened-infras_segment_result', (event, infras_seg_result) => {
     }
 })
 
+ipcRenderer.on('opened-traffic_segment_result', (event, traffic_seg_result) => {
+    console.log("event: opened-traffic_segment_result")
+    traffic_seg = traffic_seg_result
+    infras_select = $('#infras_select')
+    traffic_level_select = $('#traffic_level_select')
+
+    // set the default null option
+    traffic_level_select.append($('<option>', { 
+        value: -1,
+        text : ""
+    }))
+
+    // set the option for each segmentation selection
+    $.each(traffic_seg, function (i, traffic_seg) {
+        traffic_level_select.append($('<option>', { 
+            value: i,
+            text : traffic_seg.start_time + " - " + traffic_seg.end_time + " : " + traffic_seg.traffic_type
+        }))
+    })
+
+    // clear the segmentation selection
+    $('#clear_seg').click(() => {
+        traffic_level_select.val(-1)
+    })
+    
+    // set the traffic_level_select change action
+    traffic_level_select.change(() => {
+        infras_select.val(-1)
+        let idx = traffic_level_select.val()
+        if (idx >= 0) {
+            videoPlayer.currentTime = traffic_seg[idx].start_time
+            videoPlayer.play()
+        }
+    })
+
+    let traffic_level_interval = setInterval(checkTrafficSegEnd, 1000);
+    function checkTrafficSegEnd(){
+        let idx = traffic_level_select.val()
+        // idx >= 0 means segmentation is selected
+        if (idx >= 0) {
+            let curSegStartTime = traffic_seg[idx].start_time
+            let curSegEndTime = traffic_seg[idx].end_time
+            if(curSegStartTime != null && Math.ceil(videoPlayer.currentTime) < curSegStartTime){
+                videoPlayer.currentTime = curSegStartTime + 1
+                alert("Traffic Level Segmentation Start Reached!")
+                videoPlayer.currentTime = curSegStartTime + 1            
+                setTimeout(videoPlayer.pause(), 100)
+            }
+            if(curSegEndTime != null && Math.floor(videoPlayer.currentTime) > curSegEndTime){
+                videoPlayer.currentTime = curSegEndTime - 1
+                alert("Traffic Level Segmentation End Reached!")
+                videoPlayer.currentTime = curSegEndTime - 1
+                setTimeout(videoPlayer.pause(), 100)
+            }
+        }
+    }
+})
+
+
 ipcRenderer.on('opened-video', (event, videoFile) => {
     console.log("event: opened-video")
     videoPlayer.src = videoFile
@@ -348,8 +422,9 @@ videoPlayer.addEventListener('timeupdate', () => {
     mainProcess.updateSegInfo(videoPlayer.currentTime)
 })
 
-ipcRenderer.on('draw_seg_info', (event, currentSegInfo) => {
-    current_segment_info = currentSegInfo // need deep copy?
+ipcRenderer.on('draw_seg_info', (event, curInfrasSegInfo, curTrafficSegInfo) => {
+    cur_infras_seg_info = curInfrasSegInfo // need deep copy?
+    cur_traffic_seg_info = curTrafficSegInfo
 })
 
 // helper function

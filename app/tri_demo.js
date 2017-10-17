@@ -22,8 +22,10 @@ let lastReqTimestamp = 0.00
 
 let currentLink = 0
 
-let currentSeg = null // global variable in the server to store the information of current road segmentation
-let currentSeg_index = 0
+let cur_infras_seg = null // global variable in the server to store the information of current road segmentation
+let cur_infras_seg_index = 0
+let cur_traffic_seg = null
+let cur_traffic_seg_index = 0
 
 let videoFile = null
 let OBD_data = null
@@ -124,11 +126,13 @@ const openVideoFromUser = exports.openVideoFromUser = () => {
     const OBD_file = path.join(app.getAppPath(), 'app/data/OBD.json')
     const infras_seg_result_file = path.join(app.getAppPath(),
         'app/data/infras_segmentation_result.json')
+    const traffic_seg_result_file = path.join(app.getAppPath(), 'app/data/traffic_segmentation_result.json')
 
     try {
         OBD_data = JSON.parse(fs.readFileSync(OBD_file, 'utf8'))
         OBD_data = OBD_data["data_samples"]
         infras_seg_result = JSON.parse(fs.readFileSync(infras_seg_result_file, 'utf8'))
+        traffic_seg_result = JSON.parse(fs.readFileSync(traffic_seg_result_file, 'utf8'))
     } catch (err) {
         console.log(err.message)
     }
@@ -138,13 +142,16 @@ const openVideoFromUser = exports.openVideoFromUser = () => {
     console.log("Start GPS position:\t latittude: " + currentLat + "longitude: " + currentLng)
 
     // store the status of the current segment
-    currentSeg = infras_seg_result[currentSeg_index]
+    cur_infras_seg = infras_seg_result[cur_infras_seg_index]
+    cur_traffic_seg = traffic_seg_result[cur_traffic_seg_index]
 
     mainWindow.webContents.send('update-gps', currentLat, currentLng)
 
     mainWindow.webContents.send('opened-video', videoFile)
 
     mainWindow.webContents.send('opened-infras_segment_result', infras_seg_result)
+
+    mainWindow.webContents.send('opened-traffic_segment_result', traffic_seg_result)
 
     mainWindow.webContents.send('opened-csv', csvHeader, realtimeInfo)
 }
@@ -231,15 +238,25 @@ const updateMap = exports.updateMap = (reqTimeStamp) => {
 
 // Update Segmentation information
 const updateSegInfo = exports.updateSegInfo = (reqTimeStamp) => {
-    currentSeg = infras_seg_result[0]
-    currentSeg_index = 0
+    cur_infras_seg = infras_seg_result[0]
+    cur_infras_seg_index = 0
 
-    while (reqTimeStamp > currentSeg.end_time) {
-        currentSeg_index += 1
-        currentSeg = infras_seg_result[currentSeg_index]
+    while (reqTimeStamp > cur_infras_seg.end_time) {
+        cur_infras_seg_index += 1
+        cur_infras_seg = infras_seg_result[cur_infras_seg_index]
     }
-    console.log("enter into a new road_segmentation: " + currentSeg_index)
-    console.log("segment infrastructure type: " + currentSeg.infras_type.toString())
+    console.log("enter into a new infras_segmentation: " + cur_infras_seg_index)
+    console.log("segment infrastructure type: " + cur_infras_seg.infras_type.toString())
 
-    mainWindow.webContents.send('draw_seg_info', currentSeg)
+    cur_traffic_seg = traffic_seg_result[0]
+    cur_traffic_seg_index = 0
+
+    while (reqTimeStamp > cur_traffic_seg.end_time) {
+        cur_traffic_seg_index += 1
+        cur_traffic_seg = traffic_seg_result[cur_traffic_seg_index]
+    }
+    console.log("enter into a new traffic_segmentation: " + cur_traffic_seg_index)
+    console.log("segment traffic level type: " + cur_traffic_seg.traffic_type.toString())
+
+    mainWindow.webContents.send('draw_seg_info', cur_infras_seg, cur_traffic_seg)
 }
