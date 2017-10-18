@@ -265,17 +265,17 @@ const drawFrame = () => {
         context.fillStyle = "#ffffff"
 
         // set the absolute position of the info 
-        var x = 0.27 * canvas_width
-        var y = 0.72 * canvas_height
+        var x = 0.25 * canvas_width
+        var y = 0.8 * canvas_height
         var lineheight = font_size;
         var linkArrText = ""
         for (var i in cur_infras_seg_info.link_array)
             linkArrText += cur_infras_seg_info.link_array[i].linkID + "\n"
 
         let text = "Infras level: " + cur_infras_seg_info.infras_type.toString() +
-            "\nTraffic level: " + cur_traffic_seg_info.traffic_type.toString() +
-            "\nStart time: " + cur_infras_seg_info.start_time +
-            "\nEnd time: " + cur_infras_seg_info.end_time
+            "\nTraffic level: " + cur_traffic_seg_info.traffic_type.toString()
+            // + "\nStart time: " + cur_infras_seg_info.start_time +
+            // "\nEnd time: " + cur_infras_seg_info.end_time
         // "\nLink array:\n" + linkArrText
 
         var lines = text.split('\n');
