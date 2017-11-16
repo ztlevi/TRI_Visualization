@@ -24,3 +24,5 @@ Put the name of file that need to process in the pd.read_csv
 Put all the needed columns name in the pd.DataFrame()
 
 If need more help, look through the python pandas homepage for more details
+
+- Notes: This program is responsible by Weicheng Jiang
